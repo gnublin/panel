@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20162211184244) do
+ActiveRecord::Schema.define(version: 20162211184245) do
 
   create_table "pages", force: :cascade do |t|
     t.string   "title"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20162211184244) do
     t.string   "basic_password"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "site_id"
   end
 
   create_table "sites", force: :cascade do |t|

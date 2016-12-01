@@ -2,7 +2,7 @@
 
 <div class="title">Sites</div>
 
-<%= link_to 'New Page', new_site_path %>
+<%= link_to 'New Site', new_site_path %>
 <% if params[:all] == 'true' %>
 <%= link_to 'Show active sites', sites_path(all: false) %>
 <% else %>
@@ -10,7 +10,7 @@
 <% end %>
   <% @sites.each do |site| %>
 <div class="main_content_site">
-  <div class="name_site"><%= site.name.capitalize %> </div>
+  <div class="title_site"><%= site.name.capitalize %> </div>
   <div class="name_spec_site">Site stats is active: <%= site.active %></div>
   <div class="name_spec_site">URL: <%= site.url %></div>
     <%= link_to 'Edit', edit_site_path(site) %>

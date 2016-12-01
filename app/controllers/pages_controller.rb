@@ -5,7 +5,6 @@ class PagesController < ApplicationController
   # GET /pages.json
   def index
     @pages = params[:all] == 'true' ? Page.all : Page.where(active: true)
-
   end
 
 
