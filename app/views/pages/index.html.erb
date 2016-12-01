@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<div class="title">Pages</div>
+
+<%= link_to 'New Page', new_page_path %>
+<% if params[:all] == 'true' %>
+<%= link_to 'Show active pages', pages_path(all: false) %>
+<% else %>
+<%= link_to 'Show all pages', pages_path(all: true) %>
+<% end %>
+  <% @pages.each do |page| %>
+<div class="main_content_page">
+  <div class="title_page"><%= page.title.capitalize %> </div>
+  <div class="name_spec_page">Page stats is active: <%= page.active %></div>
+  <div class="name_spec_page">URL: <%= page.url %></div>
+  <div class="name_spec_page">Email: <%= page.email %></div>
+  <div class="name_spec_page">Basic authentification login: <%= page.basic_auth %></div>
+  <div class="name_spec_page">Basic authentification password: <%= page.basic_password %></div>
+    <%= link_to 'Edit', edit_page_path(page) %>
+    <%= link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
+    <% end %>
+<br>
