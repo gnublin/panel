@@ -1,0 +1,38 @@
+Name: <%= @site.name %><br />
+Url: <%= @site.url %><br />
+<% @page.each do |page| %>
+<div class="title_page"><%= page.title.capitalize %> </div>
+<% end %>
+<%= form_for([@site, @site.pages.build]) do |f| %>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :url %>
+    <%= f.text_field :url %>
+  </div>
+
+  <div class="field">
+    <%= f.label :active %>
+    <%= f.check_box :active %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :basic_auth %>
+    <%= f.text_field :basic_auth %>
+  </div>
+
+  <div class="field">
+    <%= f.label :basic_password %>
+    <%= f.password_field :basic_password %>
+  </div>
+<%= f.submit %>
+</p>
+<% end %>

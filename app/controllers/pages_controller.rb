@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = params[:all] == 'true' ? Page.all : Page.where(active: true)
+    @pages = params[:all] == 'true' ? Page.all : Page.where(active: true, site_id: params[:site_id])
   end
 
 
@@ -26,7 +26,8 @@ class PagesController < ApplicationController
   # POST /pages
   # POST /pages.json
   def create
-    @page = Page.new(page_params)
+    @page = Page.find(params[:site_id])
+    @page = @site.page.create(page_params)
 
     respond_to do |format|
       if @page.save
@@ -71,6 +72,6 @@ class PagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
-      params.require(:page).permit(:title, :url, :active, :email, :basic_auth, :basic_password)
+      params.require(:page).permit(:site_id, :title, :url, :active, :email, :basic_auth, :basic_password)
     end
 end

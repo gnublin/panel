@@ -1,9 +1,10 @@
 class SitesController < ApplicationController
   before_action :set_site, only: [:show, :edit, :update, :destroy]
+  before_action :set_page, only: [:show, :edit, :update, :destroy]
+
 
   def index
     @sites = params[:all] == 'true' ? Site.all : Site.where(active: true)
-
   end
 
   def show
@@ -53,6 +54,9 @@ class SitesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_page
+      @page = Page.where(site_id: params[:id])
+    end
     def set_site
       @site = Site.find(params[:id])
     end

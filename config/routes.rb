@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :sites
-  resources :pages
-  root 'pages#index'
+  resources :sites do
+    resources :pages
+  end
+  root 'sites#index'
+
+
 end
