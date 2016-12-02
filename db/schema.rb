@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20162211184248) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "site_id"
-    t.index ["site_id"], name: "index_pages_on_site_id", unique: true
+    t.index ["site_id"], name: "index_pages_on_site_id"
   end
 
   create_table "sites", force: :cascade do |t|

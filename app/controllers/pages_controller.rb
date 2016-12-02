@@ -1,12 +1,12 @@
 class PagesController < ApplicationController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_site
   # GET /pages
   # GET /pages.json
   def index
-    @pages = params[:all] == 'true' ? Page.all : Page.where(active: true, site_id: params[:site_id])
-  end
 
+    @pages = params[:all] == 'true' ? @site.pages : @@site.pages.where(active: true)
+  end
 
   # GET /pages/1
   # GET /pages/1.json
@@ -15,7 +15,7 @@ class PagesController < ApplicationController
 
   # GET /pages/new
   def new
-    @page = Page.new
+    @page = Page.new(site: @site)
   end
 
   # GET /pages/1/edit
@@ -26,8 +26,7 @@ class PagesController < ApplicationController
   # POST /pages
   # POST /pages.json
   def create
-    @page = Page.find(params[:site_id])
-    @page = @site.page.create(page_params)
+    @page = @site.pages.create(page_params)
 
     respond_to do |format|
       if @page.save
@@ -45,7 +44,7 @@ class PagesController < ApplicationController
   def update
     respond_to do |format|
       if @page.update(page_params)
-        format.html { redirect_to root_path, notice: "Page #{@page['title']} was successfully updated." }
+        format.html { redirect_to site_pages_path(all: true), notice: "Page #{@page['title']} was successfully updated." }
         format.json { render :show, status: :ok, location: @page }
       else
         format.html { render :edit }
@@ -59,7 +58,7 @@ class PagesController < ApplicationController
   def destroy
     @page.destroy
     respond_to do |format|
-      format.html { redirect_to pages_url, notice: "Page #{@page['title']} was successfully destroyed." }
+      format.html { redirect_to site_pages_path(all: true), notice: "Page #{@page['title']} was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -68,6 +67,10 @@ class PagesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_page
       @page = Page.find(params[:id])
+    end
+
+    def set_site
+      @site = Site.find(params[:site_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

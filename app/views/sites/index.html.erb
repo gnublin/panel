@@ -15,6 +15,7 @@
   <div class="name_spec_site">Site stats is active: <%= site.active %></div>
   <div class="name_spec_site">URL: <%= site.url %></div>
     <%= link_to 'Edit', edit_site_path(site) %>
+    <%= link_to 'Pages', site_pages_path(site, all: true) %>
     <%= link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' } %>
 </div>
     <% end %>
