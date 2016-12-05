@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <div class="title">Sites</div>
-<div class="action"
+<div class="action">
 <%= link_to 'New Site', new_site_path %>
 <% if params[:all] == 'true' %>
 <%= link_to 'Show active sites', sites_path(all: false) %>

@@ -1,4 +1,5 @@
 class SitesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_site, only: [:show, :edit, :update, :destroy]
   before_action :set_page, only: [:show, :edit, :update, :destroy]
 
@@ -58,11 +59,11 @@ class SitesController < ApplicationController
       @page = Page.where(site_id: params[:id])
     end
     def set_site
-      @site = Site.find(params[:id])
+      @site = Site.find(user_id: current_user.id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def site_params
-      params.require(:site).permit(:name, :url, :active)
+      params.require(:site).permit(:user_id, :name, :url, :active)
     end
 end
