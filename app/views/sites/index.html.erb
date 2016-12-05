@@ -1,22 +1,24 @@
 <p id="notice"><%= notice %></p>
 
 <div class="title">Sites</div>
-
+<div class="action"
 <%= link_to 'New Site', new_site_path %>
 <% if params[:all] == 'true' %>
 <%= link_to 'Show active sites', sites_path(all: false) %>
 <% else %>
 <%= link_to 'Show all sites', sites_path(all: true) %>
 <% end %>
+</div>
   <% @sites.each do |site| %>
 <div class="main_content_site">
-  <%= site.id %>
   <div class="title_site"><%= site.name.capitalize %> </div>
   <div class="name_spec_site">Site stats is active: <%= site.active %></div>
   <div class="name_spec_site">URL: <%= site.url %></div>
+  <div class="name_spec_site">
+    <%= link_to 'Pages of site', site_pages_path(site, all: true) %>
     <%= link_to 'Edit', edit_site_path(site) %>
-    <%= link_to 'Pages', site_pages_path(site, all: true) %>
     <%= link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
 </div>
     <% end %>
 <br>

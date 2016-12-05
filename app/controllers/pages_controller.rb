@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   # GET /pages.json
   def index
 
-    @pages = params[:all] == 'true' ? @site.pages : @@site.pages.where(active: true)
+    @pages = params[:all] == 'true' ? @site.pages : @site.pages.where(active: true)
   end
 
   # GET /pages/1
@@ -30,7 +30,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.save
-        format.html { redirect_to root_path, notice: "Page #{@page['title']} was successfully created." }
+        format.html { redirect_to site_pages_path(all: true), notice: "Page #{@page['title']} was successfully created." }
         format.json { render :show, status: :created, location: @page }
       else
         format.html { render :new }
