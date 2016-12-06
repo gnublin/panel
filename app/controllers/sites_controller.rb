@@ -5,22 +5,23 @@ class SitesController < ApplicationController
 
 
   def index
-    @sites = params[:all] == 'true' ? Site.all : Site.where(active: true)
+    @sites = params[:all] == 'true' ? Site.where(user_id: current_user.id) : Site.where(active: true, user_id: current_user.id)
   end
 
   def show
   end
 
   def new
-    @site = Site.new
+    @site = Site.new(user: current_user)
   end
 
   def edit
-    @site = Site.find(params[:id])
+    @site = current_user.sites.find(params[:id])
   end
 
   def create
-    @site = Site.new(site_params)
+    # @site = Site.new(site_params)
+    @site = current_user.sites.create(site_params)
 
     respond_to do |format|
       if @site.save
@@ -36,7 +37,7 @@ class SitesController < ApplicationController
   def update
     respond_to do |format|
       if @site.update(site_params)
-        format.html { redirect_to root_path, notice: "Site #{@site['name']} was successfully updated." }
+        format.html { redirect_to root_path, notice: "Site #{site_params['name']} was successfully updated." }
         format.json { render :show, status: :ok, location: @site }
       else
         format.html { render :edit }
@@ -46,9 +47,9 @@ class SitesController < ApplicationController
   end
 
   def destroy
-    @site.destroy
+    @site.destroy(params[:id])
     respond_to do |format|
-      format.html { redirect_to sites_url, notice: "Site #{@site['name']} was successfully destroyed." }
+      format.html { redirect_to sites_url, notice: "Site #{params['name']} was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -59,7 +60,7 @@ class SitesController < ApplicationController
       @page = Page.where(site_id: params[:id])
     end
     def set_site
-      @site = Site.find(user_id: current_user.id)
+      @site = Site.where(id: params[:id], user_id: current_user.id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
