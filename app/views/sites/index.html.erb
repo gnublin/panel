@@ -21,4 +21,7 @@
   </div>
 </div>
     <% end %>
+<%= link_to 'logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'my account', edit_user_registration_path %>
+
 <br>

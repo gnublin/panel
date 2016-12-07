@@ -42,3 +42,9 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
+
+gem 'pry-rails'
+
+group :test do
+  gem 'factory_girl_rails', '~> 4.0'
+end

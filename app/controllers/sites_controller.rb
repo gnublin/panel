@@ -16,12 +16,11 @@ class SitesController < ApplicationController
   end
 
   def edit
-    @site = current_user.sites.find(params[:id])
   end
 
   def create
     # @site = Site.new(site_params)
-    @site = current_user.sites.create(site_params)
+    @site = current_user.sites.new(site_params)
 
     respond_to do |format|
       if @site.save
@@ -37,7 +36,7 @@ class SitesController < ApplicationController
   def update
     respond_to do |format|
       if @site.update(site_params)
-        format.html { redirect_to root_path, notice: "Site #{site_params['name']} was successfully updated." }
+        format.html { redirect_to root_path, notice: "Site #{@site['name']} was successfully updated." }
         format.json { render :show, status: :ok, location: @site }
       else
         format.html { render :edit }
@@ -47,7 +46,7 @@ class SitesController < ApplicationController
   end
 
   def destroy
-    @site.destroy(params[:id])
+    @site.destroy
     respond_to do |format|
       format.html { redirect_to sites_url, notice: "Site #{params['name']} was successfully destroyed." }
       format.json { head :no_content }
@@ -60,11 +59,12 @@ class SitesController < ApplicationController
       @page = Page.where(site_id: params[:id])
     end
     def set_site
-      @site = Site.where(id: params[:id], user_id: current_user.id)
+      @site = current_user.sites.find(params[:id])
+      # @site = Site.where(id: params[:id], user_id: current_user.id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def site_params
-      params.require(:site).permit(:user_id, :name, :url, :active)
+      params.require(:site).permit(:name, :url, :active)
     end
 end
