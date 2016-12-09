@@ -6,15 +6,9 @@ require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-
   # Add more helper methods to be used by all tests here...
 end
 
 class ActionDispatch::IntegrationTest
-  def sign_in(user)
-    post user_session_path \
-      'user[email]'    => user.email,
-      'user[password]' => user.password
-  end
+  include Devise::Test::IntegrationHelpers
 end
