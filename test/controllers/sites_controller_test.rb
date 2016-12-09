@@ -4,10 +4,11 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
   include FactoryGirl::Syntax::Methods
 
   test "should get index" do
-    user = build :user
-    p user
-    get site_pages_url
+    site = create :site
+
+    get site_pages_url(site)
     assert_response :success
+    binding.pry
   end
 
   # test "should get show" do
