@@ -1,7 +1,8 @@
 class Admin::AccountsController < ApplicationController
   before_action :authenticate_user!
   before_action :is_admin
-  before_action :set_user, only: [:index, :show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_users, only: [:index, :show]
 
   def index
   end
@@ -22,8 +23,6 @@ class Admin::AccountsController < ApplicationController
   def update
     p "dd"
     respond_to do |format|
-      p @user
-      p params
       if @user.update(user_params)
         format.html { redirect_to admin_account_path, notice: "Account up to date" }
         format.json { render :show, status: :ok, location: @user }
@@ -40,9 +39,9 @@ class Admin::AccountsController < ApplicationController
   private
 
     def is_admin
-      # unless current_user.admin
-      #   redirect_to "/"
-      # end
+      unless current_user.admin
+        redirect_to "/"
+      end
     end
 
     def set_users
@@ -55,8 +54,6 @@ class Admin::AccountsController < ApplicationController
     end
 
     def user_params
-      p params
-      params.require(:email).permit(:admin)
+      params.require(:user).permit(:email, :admin)
     end
-
 end

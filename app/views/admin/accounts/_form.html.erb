@@ -1,4 +1,4 @@
-<%= form_for(admin_account_path, :url => admin_account_path, method: :patch) do |f| %>
+<%= form_for(user, url: admin_account_path, method: :patch) do |f| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -21,6 +21,6 @@
   <br/>
   <br/>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "account"%>
   </div>
 <% end %>
