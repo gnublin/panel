@@ -9,4 +9,15 @@ FactoryGirl.define do
     url "http://example.org"
     user
   end
+
+  factory :page do
+    site
+    title 'My page'
+    url '/toto42'
+    active true
+    email 'ga@doctolib.fr'
+    basic_auth 'none'
+    basic_password 'none'
+  end
+
 end
