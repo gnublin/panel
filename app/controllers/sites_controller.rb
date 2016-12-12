@@ -57,6 +57,7 @@ class SitesController < ApplicationController
     def set_page
       @page = Page.where(site_id: params[:id])
     end
+
     def set_site
       @site = current_user.sites.find(params[:id])
       # @site = Site.where(id: params[:id], user_id: current_user.id)

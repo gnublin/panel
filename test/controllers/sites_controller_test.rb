@@ -7,8 +7,8 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     @site = create :site
   end
 
-  def test_reject_unauthenticated_request
-    get site_pages_url(@site)
+  def test_sites_reject_unauthenticated_request
+    get sites_url
     assert_redirected_to new_user_session_url
   end
 
@@ -43,7 +43,4 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     delete site_url(@site)
     assert_redirected_to sites_url
   end
-
-
-
 end
