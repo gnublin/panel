@@ -13,3 +13,7 @@ module Panel
     # -- all .rb files in that directory are automatically loaded.
   end
 end
+
+Rails.application.configure do
+  config.npm.install = ['yarn']
+end
