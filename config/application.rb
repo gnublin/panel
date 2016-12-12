@@ -16,4 +16,7 @@ end
 
 Rails.application.configure do
   config.npm.install = ['yarn']
+  config.npm.watch = ['yarn start']
+
+  config.generators.assets = false
 end

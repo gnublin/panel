@@ -12,5 +12,13 @@ module.exports = {
   files: {
     javascripts: {joinTo: 'javascripts/brunch/app.js'},
     stylesheets: {joinTo: 'stylesheets/brunch/app.css'}
+  },
+
+  plugins: {
+    sass: {
+      options: {
+        includePaths: ['node_modules']
+      }
+    }
   }
 }
