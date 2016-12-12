@@ -1,1 +1,2 @@
-console.log("Application loaded")
+// Load UIKit JS
+require('uikit/dist/js/uikit.js')

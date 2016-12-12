@@ -4,7 +4,6 @@ html
     title Panel
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all'
-    = javascript_include_tag 'application'
 
   body
     nav.uk-navbar.uk-navbar-attached.uk-margin-bottom
@@ -22,3 +21,5 @@ html
         p.uk-alert.uk-alert-warning= alert
 
       = yield
+
+    = javascript_include_tag 'application'
