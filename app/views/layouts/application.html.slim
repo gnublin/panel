@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title Panel
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application'
+
+  body
+    nav.uk-navbar.uk-navbar-attached.uk-margin-bottom
+      .uk-navbar-brand Panel
+      uk.uk-navbar-nav
+        li= link_to 'Sites', root_path
+      uk.uk-navbar-nav.uk-navbar-flip
+        li= link_to 'My account', edit_user_registration_path
+        li= link_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }
+
+    .uk-container.uk-container-center
+      - if notice
+        p.uk-alert= notice
+      - if alert
+        p.uk-alert.uk-alert-warning= alert
+
+      = yield

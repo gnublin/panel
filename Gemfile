@@ -9,6 +9,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'npm-pipeline-rails'
+gem 'slim-rails'
 
 group :development, :test do
   gem 'pry-rails'
@@ -19,7 +20,7 @@ group :development do
   gem 'binding_of_caller'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i(mingw mswin x64_mingw jruby)
 gem 'devise'
 
 group :test do

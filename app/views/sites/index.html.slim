@@ -1,0 +1,24 @@
+h1 Sites
+ul.uk-subnav.uk-subnav-pill
+  li= link_to 'New site', new_site_path
+  - if params[:all] == 'true'
+    li= link_to 'Show active sites', sites_path(all: false)
+  - else
+    li= link_to 'Show all sites', sites_path(all: true)
+
+- @sites.each do |site|
+  h2= site.name.capitalize
+  dl
+    dt Site stats is active
+    dd
+      - if site.active
+        ' Yes
+      - else
+        ' No
+    dt URL
+    dd= site.url
+  
+  ul.uk-subnav.uk-subnav-line
+    li= link_to 'Pages of site', site_pages_path(site, all: true)
+    li= link_to 'Edit', edit_site_path(site)
+    li= link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' }
