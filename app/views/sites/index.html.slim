@@ -12,8 +12,10 @@ ul.uk-subnav.uk-subnav-pill
     dt Site stats is active
     dd
       - if site.active
+        i.uk-icon-check>
         ' Yes
       - else
+        i.uk-icon-times>
         ' No
     dt URL
     dd= site.url

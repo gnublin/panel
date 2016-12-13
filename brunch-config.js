@@ -19,6 +19,10 @@ module.exports = {
       options: {
         includePaths: ['node_modules']
       }
+    },
+    copycat: {
+      fonts: ["node_modules/uikit/dist/fonts"],
+      onlyChanged: true
     }
   }
 }
