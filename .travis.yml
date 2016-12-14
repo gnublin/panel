@@ -1,4 +1,6 @@
 language: ruby
+before_install:
+  - npm install -g yarn
 before_script:
   - bundle exec rake assets:precompile
 script: bundle exec rake test
