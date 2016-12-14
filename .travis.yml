@@ -5,4 +5,5 @@ before_install:
   - npm install -g yarn
 before_script:
   - bundle exec rake assets:precompile
+  - bundle exec rake db:test:prepare
 script: bundle exec rake test
