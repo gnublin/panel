@@ -4,7 +4,7 @@ before_install:
   - nvm use stable
   - npm install -g yarn
 before_script:
-  - bundle exec rake assets:precompile
+  # - bundle exec rake assets:precompile
   - rm -f db/test.db
   - rake db:create RAILS_ENV=test
 script: bundle exec rake test
