@@ -1,11 +1,10 @@
 language: ruby
-env:
-  - RAILS_ENV=test
 before_install:
   - nvm install stable
   - nvm use stable
   - npm install -g yarn
 before_script:
   - bundle exec rake assets:precompile
-  - bundle exec rake db:test:prepare
+  - rm -f db/test.db
+  - rake db:create RAILS_ENV=test
 script: bundle exec rake test
