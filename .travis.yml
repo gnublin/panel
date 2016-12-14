@@ -1,4 +1,6 @@
 language: ruby
+env:
+  - TRAVIS_NODE_VERSION="4"
 before_install:
   - npm install -g yarn
 before_script:
