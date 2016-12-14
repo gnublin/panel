@@ -21,7 +21,6 @@ class Admin::AccountsController < ApplicationController
   end
 
   def update
-    p "dd"
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to admin_account_path, notice: "Account up to date" }
