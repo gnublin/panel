@@ -6,5 +6,5 @@ before_install:
 before_script:
   # - bundle exec rake assets:precompile
   - rm -f db/test.db
-  - rake db:create RAILS_ENV=test
-script: bundle exec rake test
+  - RAILS_ENV=test rails db:create
+script: bundle exec rails test
