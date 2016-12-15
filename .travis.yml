@@ -8,5 +8,5 @@ before_script:
   - bundle exec rails assets:precompile
   - rm -f db/test.sqlite3
   - RAILS_ENV=test bundle exec rails db:create
-  - RAILS_ENV=test bundle exec rails db:load:schema
+  - RAILS_ENV=test bundle exec rails db:schema:load
 script: bundle exec rails test
