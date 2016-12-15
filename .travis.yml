@@ -4,10 +4,8 @@ before_install:
   - nvm use stable
   - npm install -g yarn
 before_script:
-  - bundle exec rails --version
   - bundle exec rails assets:precompile
   - rm -f db/test.sqlite3
-  - RAILS_ENV=test bundle exec rails db:create
-  # - RAILS_ENV=test bundle exec rails db:schema:load
-  - RAILS_ENV=test bundle exec rails db:migrate
+  - bundle exec rails db:create
+  - bundle exec rails db:migrate
 script: bundle exec rails test
