@@ -1,7 +1,8 @@
-h1 Account
-ul.uk-subnav.uk-subnav-pill
-  li= link_to 'Back to all accounts', :back
-h2 = "Email: #{@user['email']}"
-ul.uk-subnav.uk-subnav-line
-  li= link_to 'Edit', edit_admin_account_path(@user)
-  li= link_to 'Destroy', admin_account_path(@user), method: :delete, data: { confirm: 'Are you sure?' }
+h1 Show account
+dl.uk-description-list-horizontal
+  dt Email: 
+  dd = @user['email']
+  dt Is admin: 
+  dd = @user['admin']
+
+= link_to 'Show all accounts', admin_accounts_path
