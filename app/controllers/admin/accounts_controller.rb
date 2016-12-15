@@ -15,7 +15,6 @@ class Admin::AccountsController < ApplicationController
   end
 
   def create
-    p params
     @user = User.new(user_params)
 
     respond_to do |format|

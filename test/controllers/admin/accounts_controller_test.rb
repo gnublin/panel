@@ -46,7 +46,7 @@ class Admin::AccountsControllerTest < ActionDispatch::IntegrationTest
   def test_update_account
     sign_in @user_admin
 
-    post admin_accounts_url, params: {users: {email: 'ohohoh@christ.mas', admin: false}}
+    post admin_accounts_url, params: {user: {email: 'ohohoh@christ.mas', admin: false}}
     assert_response :ok
   end
 

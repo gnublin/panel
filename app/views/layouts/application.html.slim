@@ -13,7 +13,7 @@ html
       uk.uk-navbar-nav.uk-navbar-flip
         li= link_to 'My account', edit_user_registration_path
         - if @is_an_admin == true
-          li= link_to 'Manage account', admin_accounts_path
+          li= link_to 'Manage accounts', admin_accounts_path
         li= link_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }
     .uk-container.uk-container-center
       - if notice
