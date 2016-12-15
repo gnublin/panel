@@ -3,11 +3,13 @@
 <div class="title">Account manager</div>
 <div class="action">
 </div>
+<%= link_to 'New', new_admin_account_path %>
   <% @users.each do |user| %>
 <div class="main_content_page">
   <div class="title_account"><%= user.email %> </div>
   <div class="name_spec_users">User admin: <%= user.admin %></div>
-  <div class="name_spec_page"><%= link_to 'Edit', edit_admin_account_path(user) %>
+  <div class="name_spec_page"><%= link_to 'Show', admin_account_path(user) %>
+  <%= link_to 'Edit', edit_admin_account_path(user) %>
   <%= link_to 'Destroy', admin_account_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></div>
 </div>
     <% end %>
