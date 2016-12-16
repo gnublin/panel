@@ -23,7 +23,7 @@ class SitesController < ApplicationController
 
     respond_to do |format|
       if @site.save
-        format.html { redirect_to site_path(@site), notice: "Site #{@site['name']} was successfully created." }
+        format.html { redirect_to root_path, notice: "Site #{@site['name']} was successfully created." }
         format.json { render :show, status: :created, location: @site }
       else
         format.html { render :new }
@@ -65,6 +65,6 @@ class SitesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def site_params
-      params.require(:site).permit(:name, :url, :active)
+      params.require(:site).permit(:url, :active, :name)
     end
 end
