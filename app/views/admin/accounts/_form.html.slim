@@ -1,0 +1,17 @@
+div.uk-form-large
+  = form_for user, url: url do |f|
+    div.uk-form-large
+      = f.label :admin
+      = f.check_box :admin
+    br
+    div.uk-form-large
+      = f.label :email, "Email: "
+      = f.text_field :email, placeholder: 'unhomme@terre.com'
+    br
+    div.uk-form-large
+      = f.label :password, "Password: "
+      = f.text_field :password
+    br
+    div.actions.uk-form-large
+      = link_to 'Back', admin_accounts_path, :class => "uk-button"
+      = f.submit :class => "uk-button"

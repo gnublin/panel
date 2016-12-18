@@ -5,11 +5,11 @@ div.uk-form-large
       = f.check_box :active
     br
     div.uk-form-large
-      = f.text_field :name, :placeholder => 'Name of site'
+      = f.text_field :name, placeholder: 'Name of site'
     br
     div.uk-form-large
-      = f.text_field :url, :placeholder => 'http://www.panel.com', :class => "uk-form-width-large"
+      = f.text_field :url, placeholder: 'http://www.panel.com', class: "uk-form-width-large"
     br
     div.actions.uk-form-large
-      = button_to 'Back', sites_path, :class => "uk-button"
+      = link_to 'Back', sites_path, :class => "uk-button"
       = f.submit :class => "uk-button"

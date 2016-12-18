@@ -1,0 +1,29 @@
+div.uk-form-large
+  = form_for [page.site, page] do |f|
+    div.uk-form-large
+      = f.label :active
+      = f.check_box :active
+    br
+    div.uk-form-large
+      = f.label :title, "Title of page:"
+      = f.text_field :title, placeholder: 'title of page'
+    br
+    div.uk-form-large
+      = f.label :url, "Url: #{@site.url}/ "
+      = f.text_field :url, placeholder: '/about', class: "uk-form-width"
+    br
+    div.uk-form-large
+      = f.label :title, "Email: "
+      = f.text_field :email, placeholder: 'test@example.com', class: "uk-form-width"
+    br
+    div.uk-form-large
+      = f.label :title, "Basic auth login if needed: "
+      = f.text_field :basic_auth, placeholder: 'htaccess user name', class: "uk-form-width"
+    br
+    div.uk-form-large
+      = f.label :title, "Basic auth password if needed: "
+      = f.text_field :basic_password, placeholder: 'htaccess password', class: "uk-form-width"
+    br
+    div.actions.uk-form-large
+      = link_to 'Back', site_pages_path(page.site), :class => "uk-button"
+      = f.submit :class => "uk-button"

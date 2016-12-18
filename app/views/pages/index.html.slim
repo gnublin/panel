@@ -1,0 +1,22 @@
+h1 Pages
+ul.uk-subnav.uk-subnav-pill
+  li= link_to 'New page', new_site_page_path
+  - if params[:all] == 'true'
+    li= link_to 'Show active sites', site_pages_path(all: false)
+  - else
+    li= link_to 'Show all sites', site_pages_path(all: true)
+
+- @pages.each do |page|
+  h2= page.title.capitalize
+  ul.uk-subnav.uk-subnav
+    li= link_to 'Return to site', sites_path, class: 'uk-button'
+    li= link_to 'Edit', edit_site_page_path(page.site, page), class: 'uk-button'
+    li= link_to 'Destroy', [page.site, page], method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button'
+  ul.uk-list-space
+    - if page.active
+      li.uk-list.uk-icon-check page stats is active
+    - else
+      li.uk-list.uk-icon-times page stats is disable
+    li.uk-list Url: #{@site.url}/#{page.url}
+    li.uk-list basic_auth: #{page.basic_auth}
+    li.uk-list basic_password: #{page.basic_password}

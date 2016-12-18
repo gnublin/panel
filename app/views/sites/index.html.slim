@@ -9,9 +9,9 @@ ul.uk-subnav.uk-subnav-pill
 - @sites.each do |site|
   h2= site.name.capitalize
   ul.uk-subnav.uk-subnav
-    li= button_to 'Pages of site', site_pages_path(site, all: true), :class => 'uk-button'
-    li= button_to 'Edit', edit_site_path(site), :class => 'uk-button'
-    li= button_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'uk-button'
+    li= link_to 'Pages of site', site_pages_path(site, all: true), class: 'uk-button'
+    li= link_to 'Edit', edit_site_path(site), class: 'uk-button'
+    li= link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button'
   ul.uk-list-space
     - if site.active
       li.uk-list.uk-icon-check Site stats is active

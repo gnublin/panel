@@ -1,0 +1,19 @@
+h1 Accounts manager
+ul.uk-subnav.uk-subnav-pill
+  li= link_to 'New user', new_admin_account_path
+  / - if params[:all] == 'true'
+  /   li= link_to 'Show active account', admin_accounts_path(all: false)
+  / - else
+  /   li= link_to 'Show all account', admin_accounts_path(all: true)
+
+- @users.each do |user|
+  h2= user.email.capitalize
+  ul.uk-list-space
+    - if user.admin
+      li.uk-list.uk-icon-check user is an admin
+    - else
+      li.uk-list.uk-icon-times user is not an admin
+  ul.uk-subnav.uk-subnav
+    li= link_to 'Edit', edit_admin_account_path(user), class: 'uk-button'
+    li= link_to 'Destroy', admin_account_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button'
+  hr
