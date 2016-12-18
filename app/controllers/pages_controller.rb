@@ -4,8 +4,7 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-
-    @pages = params[:all] == 'true' ? @site.pages : @site.pages.where(active: true)
+    @pages = params[:active] == 'true' ? @site.pages.where(active: true) : @site.pages
   end
 
   # GET /pages/1

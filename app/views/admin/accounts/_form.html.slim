@@ -5,12 +5,16 @@ div.uk-form-large
       = f.check_box :admin
     br
     div.uk-form-large
+      = f.label :active
+      = f.check_box :active
+    br
+    div.uk-form-large
       = f.label :email, "Email: "
       = f.text_field :email, placeholder: 'unhomme@terre.com'
     br
     div.uk-form-large
       = f.label :password, "Password: "
-      = f.text_field :password
+      = f.password_field :password, autofocus: true, autocomplete: "off"
     br
     div.actions.uk-form-large
       = link_to 'Back', admin_accounts_path, :class => "uk-button"

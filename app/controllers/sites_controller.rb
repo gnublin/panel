@@ -4,7 +4,7 @@ class SitesController < ApplicationController
 
 
   def index
-    @sites = params[:all] == 'true' ? Site.where(user_id: current_user.id) : Site.where(active: true, user_id: current_user.id)
+    @sites = params[:active] == 'true' ? Site.where(active: true, user_id: current_user.id) : Site.where(user_id: current_user.id)
   end
 
   def show
