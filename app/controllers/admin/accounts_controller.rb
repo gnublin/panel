@@ -5,7 +5,7 @@ class Admin::AccountsController < ApplicationController
   before_action :set_users, only: [:index, :show]
 
   def index
-    @users = params[:active] == 'true' ? User.where(active: true) : User.all
+    # @users = params[:active] == 'true' ? User.where(active: true) : User.all
   end
 
   def show
