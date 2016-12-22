@@ -1,10 +1,10 @@
 h1 Accounts manager
 ul.uk-subnav.uk-subnav-pill
   li= link_to 'New user', new_admin_account_path
-  / - if params[:all] == 'true'
-  /   li= link_to 'Show active account', admin_accounts_path(all: false)
-  / - else
-  /   li= link_to 'Show all account', admin_accounts_path(all: true)
+  - if params[:admin] == 'true'
+    li= link_to 'Show all accounts', admin_accounts_path(admin: false)
+  - else
+    li= link_to 'Show only admin accounts', admin_accounts_path(admin: true)
 
 - @users.each do |user|
   h2= user.email.capitalize

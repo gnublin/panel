@@ -1,10 +1,10 @@
 h1 Pages
 ul.uk-subnav.uk-subnav-pill
   li= link_to 'New page', new_site_page_path
-  - if params[:all] == 'true'
-    li= link_to 'Show active sites', site_pages_path(all: false)
+  - if params[:active] == 'true'
+    li= link_to 'Show all pages', site_pages_path(active: false)
   - else
-    li= link_to 'Show all sites', site_pages_path(all: true)
+    li= link_to 'Show only active pages', site_pages_path(active: true)
 
 - @pages.each do |page|
   h2= page.title.capitalize
