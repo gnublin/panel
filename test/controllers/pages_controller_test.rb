@@ -15,9 +15,23 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
   def test_index_pages
     sign_in @site.user
+    post site_pages_url(@site), params: {page: {title: 'about', url: '/about', active: true, email: 'g@doctolib.fr', basic_auth: 'none', basic_password: 'none'}}
+    post site_pages_url(@site), params: {page: {title: 'about_disable', url: '/about_disable', active: false, email: 'g@doctolib.fr', basic_auth: 'none', basic_password: 'none'}}
 
     get site_pages_url(@site)
     assert_response :ok
+    assert_select 'h1', 'Pages'
+    assert_select 'a', 'New page'
+    assert_select 'a', 'Show only active pages'
+    assert_select 'h2', 'About'
+    assert_select 'h2', 'About_disable'
+    assert_select 'ul.uk-list-space' do |elements|
+      elements.each do |element|
+        assert_select element, 'li', /page stats is [active|disable]/
+        # assert_select element(2), 'li', "Url: #{@site['url']}"
+      end
+    end
+
   end
 
   def test_show_page
