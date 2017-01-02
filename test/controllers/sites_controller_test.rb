@@ -14,9 +14,24 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
 
   def test_index_sites
     sign_in @site.user
+    post sites_url params: {site: {name: 'test0', url: 'http://www.test0.com', active: true }}
+    post sites_url params: {site: {name: 'Test1', url: 'http://www.test1.com', active: false }}
 
     get sites_url
     assert_response :ok
+    assert_select 'h1', 'Sites'
+    assert_select 'a', 'New site'
+    assert_select 'a', 'Show only active sites'
+    assert_select 'h2', 'My super site'
+    assert_select 'h2', 'Test0'
+    assert_select 'h2', 'Test1'
+    assert_select 'ul.uk-list-space' do |elements|
+      elements.each do |element|
+        assert_select element, 'li.list-icon', /Site stats is [active|disable]/
+        assert_select element, 'li.list-url', /Url:.*/
+      end
+    end
+
   end
 
   def test_show_site
@@ -24,6 +39,8 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
 
     get site_url(@site)
     assert_response :ok
+    assert_select 'h1', 'Site My super site'
+
   end
 
   def test_new_site
@@ -31,6 +48,10 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
 
     get new_site_url
     assert_response :ok
+    assert_select 'form'
+    assert_select 'form input', 6
+    assert_select '[data-disable-with=?]', 'Create Site'
+    assert_select 'a', 'Back'
   end
 
   def test_edit_site
@@ -38,6 +59,10 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
 
     get edit_site_url(@site)
     assert :ok
+    assert_select 'form'
+    assert_select 'form input', 7
+    assert_select '[data-disable-with=?]', 'Update Site'
+    assert_select 'a', 'Back'
   end
 
   def test_create_site

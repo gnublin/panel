@@ -14,8 +14,8 @@ ul.uk-subnav.uk-subnav-pill
     li= link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button'
   ul.uk-list-space
     - if site.active
-      li.uk-list.uk-icon-check Site stats is active
+      li.uk-list.uk-icon-check.list-icon Site stats is active
     - else
-      li.uk-list.uk-icon-times Site stats is disable
-    li.uk-list Url: #{site.url}
+      li.uk-list.uk-icon-times.list-icon Site stats is disable
+    li.uk-list.list-url Url: #{site.url}
   

@@ -21,6 +21,8 @@ class Admin::AccountsControllerTest < ActionDispatch::IntegrationTest
 
     get admin_accounts_url
     assert_response :ok
+    assert_select 'h1', 'Accounts manager'
+    assert_select 'h2', /.*\@.*/
   end
 
   def test_show_account
@@ -31,6 +33,14 @@ class Admin::AccountsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_new_account
+    sign_in @user_admin
+
+    get new_admin_account_url
+    assert_response :ok
+    assert_select 'form'
+    assert_select 'form input', 6
+    assert_select '[data-disable-with=?]', 'Create User'
+    assert_select 'a', 'Back'
   end
 
   def test_edit_account
@@ -38,6 +48,10 @@ class Admin::AccountsControllerTest < ActionDispatch::IntegrationTest
 
     get edit_admin_account_url(@user)
     assert_response :ok
+    assert_select 'form'
+    assert_select 'form input', 7
+    assert_select '[data-disable-with=?]', 'Update User'
+    assert_select 'a', 'Back'
   end
 
   def test_create_account

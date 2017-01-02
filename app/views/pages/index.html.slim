@@ -14,9 +14,9 @@ ul.uk-subnav.uk-subnav-pill
     li= link_to 'Destroy', [page.site, page], method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button'
   ul.uk-list-space
     - if page.active
-      li.uk-list.uk-icon-check page stats is active
+      li.uk-list.uk-icon-check.list-icon page stats is active
     - else
-      li.uk-list.uk-icon-times page stats is disable
-    li.uk-list Url: #{@site.url}/#{page.url}
-    li.uk-list basic_auth: #{page.basic_auth}
-    li.uk-list basic_password: #{page.basic_password}
+      li.uk-list.uk-icon-times.list-icon page stats is disable
+    li.uk-list.list-url Url: #{@site.url}/#{page.url}
+    li.uk-list.list-basic-login basic_auth: #{page.basic_auth}
+    li.uk-list.list-basic-password basic_password: #{page.basic_password}
