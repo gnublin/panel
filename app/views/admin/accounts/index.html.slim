@@ -7,12 +7,18 @@ ul.uk-subnav.uk-subnav-pill
     li= link_to 'Show only admin accounts', admin_accounts_path(admin: true)
 
 - @users.each do |user|
-  h2= user.email.capitalize
+  h2.uk-icon-user  #{user.email}
   ul.uk-list-space
     - if user.admin
-      li.uk-list.uk-icon-check user is an admin
+      li.uk-list.uk-icon-check  Admin user
     - else
-      li.uk-list.uk-icon-times user is not an admin
+      li.uk-list.uk-icon-times  Admin user
+    - if user.failed_attempts > 0
+      li.uk-list.uk-icon-user-times  login failed #{user.failed_attempts}
+    - if user.unlock_token
+      li.uk-list.uk-icon-lock  Account is locked
+    li.uk-list Current sign in at: #{user.current_sign_in_at}
+    li.uk-list Last sign in at: #{user.last_sign_in_at}
   ul.uk-subnav.uk-subnav
     li= link_to 'Edit', edit_admin_account_path(user), class: 'uk-button'
     li= link_to 'Destroy', admin_account_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button'
