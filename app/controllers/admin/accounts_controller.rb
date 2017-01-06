@@ -66,6 +66,10 @@ class Admin::AccountsController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:email, :password, :admin)
+      unless params[:user][:password].nil?
+        params[:user].delete "password"
+        params[:user].delete "password_confirmation"
+      end
+      params.require(:user).permit(:email, :password, :password_confirmation, :admin, :unlock_access!)
     end
 end

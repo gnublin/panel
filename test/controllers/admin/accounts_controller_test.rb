@@ -38,8 +38,8 @@ class Admin::AccountsControllerTest < ActionDispatch::IntegrationTest
     get new_admin_account_url
     assert_response :ok
     assert_select 'form'
-    assert_select 'form input', 8
-    # assert_select '[data-disable-with=?]', 'Create User'
+    assert_select 'form input', 7
+    assert_select '[data-disable-with=?]', 'Create User'
     assert_select 'a', 'Back'
   end
 
@@ -49,7 +49,7 @@ class Admin::AccountsControllerTest < ActionDispatch::IntegrationTest
     get edit_admin_account_url(@user)
     assert_response :ok
     assert_select 'form'
-    assert_select 'form input', 9
+    assert_select 'form input', 8
     assert_select '[data-disable-with=?]', 'Update User'
     assert_select 'a', 'Back'
   end

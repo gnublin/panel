@@ -13,10 +13,8 @@ div.uk-form-large
       = f.password_field :password, autofocus: true, autocomplete: "off"
     br
     div.uk-form-large
-      = user.unlock_access!
-      / - if user.unlock_token
-      = f.label :unlock_access!, "Unlock access: "
-      = f.check_box :unlock_access!
+      = f.label :password_confirmation, "Password confirmation: "
+      = f.password_field :password_confirmation, autofocus: true, autocomplete: "off"
     br
     div.actions.uk-form-large
       = link_to 'Back', admin_accounts_path, :class => "uk-button"
