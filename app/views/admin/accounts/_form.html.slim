@@ -7,7 +7,7 @@ div.uk-form-large
     div.uk-form-large
       = f.label :email, "Email: "
       = f.text_field :email, placeholder: 'unhomme@terre.com'
-    br
+    div.uk-alert.uk-alert-danger 6 characters minimum
     div.uk-form-large
       = f.label :password, "Password: "
       = f.password_field :password, autofocus: true, autocomplete: "off"

@@ -5,21 +5,30 @@ ul.uk-subnav.uk-subnav-pill
     li= link_to 'Show all accounts', admin_accounts_path(admin: false)
   - else
     li= link_to 'Show only admin accounts', admin_accounts_path(admin: true)
-
-- @users.each do |user|
-  h2.uk-icon-user  #{user.email}
-  ul.uk-list-space
-    - if user.admin
-      li.uk-list.uk-icon-check  Admin user
-    - else
-      li.uk-list.uk-icon-times  Admin user
-    - if user.failed_attempts > 0
-      li.uk-list.uk-icon-user-times  login failed #{user.failed_attempts}
-    - if user.unlock_token
-      li.uk-list.uk-icon-lock  Account is locked
-    li.uk-list Current sign in at: #{user.current_sign_in_at}
-    li.uk-list Last sign in at: #{user.last_sign_in_at}
-  ul.uk-subnav.uk-subnav
-    li= link_to 'Edit', edit_admin_account_path(user), class: 'uk-button'
-    li= link_to 'Destroy', admin_account_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button'
-  hr
+ul.uk-list.uk-list-space.uk-list-striped
+  - @users.each do |user|
+    li
+      - if user.access_locked?
+        h2>
+          i.uk-icon-user>
+          = user.email
+          .uk-badge.uk-badge-danger.uk-margin-right< Locked
+      - else
+        h2
+          i.uk-icon-user>
+          = user.email
+      - if user.admin
+        i.uk-list.uk-icon-check>
+      - else user.admin
+        i.uk-list.uk-icon-check>
+      | Admin user
+      ul.uk-list.uk-list-space.uk-hidden.uk-margin-top id="more-#{user.id}"
+        li Current sign in at: #{user.current_sign_in_at}
+        li Last sign in at: #{user.last_sign_in_at}
+        - if user.failed_attempts
+        li Login failed: #{user.failed_attempts} times
+      hr.uk
+      ul.uk-subnav
+        li= link_to 'Edit', edit_admin_account_path(user), class: 'uk-button'
+        li= link_to 'Destroy', admin_account_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button'
+        li: button.uk-button data-uk-toggle="{target:'#more-#{user.id}', animation:'uk-animation-fade, uk-animation-scale-up'}" More...
