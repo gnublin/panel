@@ -1,6 +1,6 @@
 class Admin::AccountsController < ApplicationController
   before_action :authenticate_user!
-  before_action :is_admin
+  before_action :reject_non_admin
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_users, only: [:index, :show]
 
@@ -50,10 +50,8 @@ class Admin::AccountsController < ApplicationController
 
   private
 
-    def is_admin
-      unless current_user.admin
-        redirect_to "/"
-      end
+    def reject_non_admin
+      redirect_to "/", flash: {danger: 'You are not allowed to see this page.'} unless user_admin?
     end
 
     def set_users

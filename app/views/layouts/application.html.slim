@@ -10,7 +10,7 @@ html
     nav.uk-navbar.uk-navbar-attached.uk-margin-bottom
       ul.uk-navbar-nav
         li= link_to 'Sites', root_path, class: "uk-button "
-        - if @is_an_admin == true
+        - if user_admin?
           li= link_to 'Manage accounts', admin_accounts_path, class: "uk-button"
       ul.uk-navbar-nav.uk-navbar-flip
         li data-uk-dropdown="{delay:1000}"
