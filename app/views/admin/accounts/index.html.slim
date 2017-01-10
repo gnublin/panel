@@ -1,10 +1,10 @@
 h1 Accounts manager
 ul.uk-subnav.uk-subnav-pill
-  li= link_to 'New user', new_admin_account_path
+  li= link_to 'New user', new_admin_account_path, class: 'uk-button uk-button-tidy-menu'
   - if params[:admin] == 'true'
-    li= link_to 'Show all accounts', admin_accounts_path(admin: false)
+    li= link_to 'Show all accounts', admin_accounts_path(admin: false), class: 'uk-button uk-button-tidy-menu'
   - else
-    li= link_to 'Show only admin accounts', admin_accounts_path(admin: true)
+    li= link_to 'Show only admin accounts', admin_accounts_path(admin: true), class: 'uk-button uk-button-tidy-menu'
 ul.uk-list.uk-list-space.uk-list-striped
   - @users.each do |user|
     li
@@ -27,8 +27,8 @@ ul.uk-list.uk-list-space.uk-list-striped
         li Last sign in at: #{user.last_sign_in_at}
         - if user.failed_attempts
         li Login failed: #{user.failed_attempts} times
-      hr.uk
       ul.uk-subnav
-        li= link_to 'Edit', edit_admin_account_path(user), class: 'uk-button'
-        li= link_to 'Destroy', admin_account_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button'
+        li= link_to 'Edit', edit_admin_account_path(user), class: 'uk-button uk-button-tidy-menu'
+        li= link_to 'Destroy', admin_account_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button uk-button-danger'
         li: button.uk-button data-uk-toggle="{target:'#more-#{user.id}', animation:'uk-animation-fade, uk-animation-scale-up'}" More...
+      
