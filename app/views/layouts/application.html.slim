@@ -6,21 +6,21 @@ html
     = stylesheet_link_tag 'application', media: 'all'
 
   body
+    div Panel
     nav.uk-navbar.uk-navbar-attached.uk-margin-bottom
-      / .uk-navbar-brand Panel
-      ul.uk-tab
+      ul.uk-navbar-nav
         li= link_to 'Sites', root_path, class: "uk-button "
         - if @is_an_admin == true
           li= link_to 'Manage accounts', admin_accounts_path, class: "uk-button"
-        ul.uk-tab.uk-tab-flip
-          li data-uk-dropdown="{delay:1000}"
-            a>
-              |My account
-              i.uk-icon-caret-down<
-            div.uk-dropdown.uk-dropdown-small
-              ul.uk-nav.uk-nav-dropdown
-                li= link_to 'Edit', edit_user_registration_path
-                li= link_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }                
+      ul.uk-navbar-nav.uk-navbar-flip
+        li data-uk-dropdown="{delay:1000}"
+          a>
+            |My account
+            i.uk-icon-caret-down<
+          div.uk-dropdown.uk-dropdown-small
+            ul.uk-nav.uk-nav-dropdown
+              li= link_to 'Edit', edit_user_registration_path
+              li= link_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }
     .uk-container.uk-container-center
       - if notice
         p.uk-alert= notice
