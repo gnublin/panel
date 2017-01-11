@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'npm-pipeline-rails'
 gem 'slim-rails'
+gem 'resque'
 
 group :development, :test do
   gem 'pry-rails'
