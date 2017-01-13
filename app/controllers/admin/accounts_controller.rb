@@ -36,6 +36,7 @@ class Admin::AccountsController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
+        format.html { redirect_to admin_accounts_path, notice: "Account unlock" } if Rails.application.routes.recognize_path(request.referrer)[:action] == 'index'
         format.html { redirect_to admin_account_path, notice: "Account up to date" }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -68,6 +69,6 @@ class Admin::AccountsController < ApplicationController
         params[:user].delete "password"
         params[:user].delete "password_confirmation"
       end
-      params.require(:user).permit(:email, :password, :password_confirmation, :admin, :unlock_access!)
+      params.require(:user).permit(:email, :password, :password_confirmation, :admin, :locked_at, :failed_attempts)
     end
 end

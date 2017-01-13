@@ -1,34 +1,76 @@
-h1 Accounts manager
+h1 Accounts
 ul.uk-subnav.uk-subnav-pill
   li= link_to 'New user', new_admin_account_path, class: 'uk-button uk-button-tidy-menu'
   - if params[:admin] == 'true'
     li= link_to 'Show all accounts', admin_accounts_path(admin: false), class: 'uk-button uk-button-tidy-menu'
   - else
     li= link_to 'Show only admin accounts', admin_accounts_path(admin: true), class: 'uk-button uk-button-tidy-menu'
-ul.uk-list.uk-list-space.uk-list-striped
+
+table.uk-table.uk-table-striped
+  tr
+    th
+      |Email
+    th
+      |Admin
+    th
+
   - @users.each do |user|
-    li
-      - if user.access_locked?
-        h2>
-          i.uk-icon-user>
-          = user.email
-          .uk-badge.uk-badge-danger.uk-margin-right< Locked
-      - else
-        h2
-          i.uk-icon-user>
-          = user.email
-      - if user.admin
-        i.uk-list.uk-icon-check>
-      - else user.admin
-        i.uk-list.uk-icon-check>
-      | Admin user
-      ul.uk-list.uk-list-space.uk-hidden.uk-margin-top id="more-#{user.id}"
-        li Current sign in at: #{user.current_sign_in_at}
-        li Last sign in at: #{user.last_sign_in_at}
-        - if user.failed_attempts
-        li Login failed: #{user.failed_attempts} times
-      ul.uk-subnav
-        li= link_to 'Edit', edit_admin_account_path(user), class: 'uk-button uk-button-tidy-menu'
-        li= link_to 'Destroy', admin_account_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button uk-button-danger'
-        li: button.uk-button data-uk-toggle="{target:'#more-#{user.id}', animation:'uk-animation-fade, uk-animation-scale-up'}" More...
-      
+    tr
+      td
+        = user.email
+        - if user.access_locked?
+            .uk-badge.uk-badge-danger.uk-margin-right< Locked
+      td
+        - if user.admin
+          i.uk-list.uk-icon-check>
+        - else
+          i.uk-list.uk-icon-times>
+      td 
+        button data-uk-modal="{target:'#more-#{user.id}'}" class="uk-button" More
+        - if user.access_locked?
+          = link_to 'Unlock', admin_account_path(user, :user => {locked_at: '', failed_attempts: 0}), method: :patch, data: { confirm: 'Are you sure?' }, class: 'uk-button uk-button-danger'
+        .uk-modal id="more-#{user.id}"
+          .uk-modal-dialog
+            h2= user.email
+            hr
+            table.uk-table.uk-table-striped
+              tr
+                th
+                  |Account informations: 
+                th
+              tr
+                td Create at
+                td= user.created_at
+              tr
+                td Last update
+                td= user.updated_at
+              - if user.failed_attempts
+                tr
+                  td Login failed (times)
+                  td= user.failed_attempts
+            table.uk-table.uk-table-striped
+              tr
+                th
+                  |Sign informations: 
+                th
+              tr
+                td Current sign in at
+                td= user.current_sign_in_at
+              tr
+                td Last sign in
+                td= user.last_sign_in_at
+              tr
+                td Sign in count
+                td= user.sign_in_count
+              tr
+                td Current IP
+                td= user.current_sign_in_ip
+              tr
+                td Last sign in IP
+                td= user.last_sign_in_ip
+              tr
+                td Remember created at:
+                td= user.remember_created_at
+            ul.uk-subnav
+              li= link_to 'Edit', edit_admin_account_path(user), class: 'uk-button'
+              li= link_to 'Destroy', admin_account_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button uk-button-danger'
