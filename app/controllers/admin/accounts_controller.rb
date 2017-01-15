@@ -24,7 +24,6 @@ class Admin::AccountsController < ApplicationController
         format.html { redirect_to admin_account_path(@user), notice: "user #{@user['email']} was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else
-        p @user.errors
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -66,11 +65,10 @@ class Admin::AccountsController < ApplicationController
     end
 
     def user_params
-      if params[:user][:password].empty?
+      if params[:user][:password].nil? || params[:user][:password].empty?
         params[:user].delete "password"
         params[:user].delete "password_confirmation"
       end
-      p params
       params.require(:user).permit(:email, :password, :password_confirmation, :admin, :locked_at, :failed_attempts)
     end
 end

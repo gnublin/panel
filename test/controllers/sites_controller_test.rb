@@ -22,15 +22,6 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'h1', 'Sites'
     assert_select 'a', 'New site'
     assert_select 'a', 'Show only active sites'
-    assert_select 'h2', 'My super site'
-    assert_select 'h2', 'Test0'
-    assert_select 'h2', 'Test1'
-    assert_select 'ul.uk-list-space' do |elements|
-      elements.each do |element|
-        assert_select element, 'li.list-icon', /Site stats is [active|disable]/
-        assert_select element, 'li.list-url', /Url:.*/
-      end
-    end
 
   end
 

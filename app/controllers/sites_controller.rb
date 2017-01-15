@@ -9,7 +9,7 @@ class SitesController < ApplicationController
     @sites.each do |site|
       @all_pages[site.id] = Page.where(site_id: site.id)
     end
-    p @all_pages
+    #p @all_pages
   end
 
   def show
