@@ -6,16 +6,50 @@ ul.uk-subnav.uk-subnav-pill
   - else
     li= link_to 'Show only active sites', sites_path(active: true)
 
-- @sites.each do |site|
-  h2= site.name.capitalize
-  ul.uk-subnav.uk-subnav
-    li= link_to 'Pages of site', site_pages_path(site, all: true), class: 'uk-button'
-    li= link_to 'Edit', edit_site_path(site), class: 'uk-button'
-    li= link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button'
-  ul.uk-list-space
-    - if site.active
-      li.uk-list.uk-icon-check.list-icon Site stats is active
-    - else
-      li.uk-list.uk-icon-times.list-icon Site stats is disable
-    li.uk-list.list-url Url: #{site.url}
+table.uk-table.uk-table-striped
+  tr
+    th
+      |Site
+    th
+      |Active
+    th
+      |Pages of site
+    th 
+  - @sites.each do |site|
+    tr
+      td= site.name
+      td
+        -if site.active
+          li.uk-list.uk-icon-check.list-icon
+        -else
+          li.uk-list.uk-icon-times.list-icon
+      td 
+        |dsq
+      td         
+        = link_to 'Pages of site', site_pages_path(site, all: true), class: 'uk-button'
+        button< data-uk-modal="{target:'#more-#{site.id}'}" class="uk-button" More
+        .uk-modal id="more-#{site.id}"
+          .uk-modal-dialog
+            table.uk-table.uk-table-striped
+              tr
+                th
+                  |Site insformations:
+                th
+              tr
+                td Name:
+                td= site.name
+              tr
+                td Create at:
+                td= site.created_at
+              tr
+                td Last update:
+                td= site.updated_at
+            = link_to 'Edit', edit_site_path(site), class: 'uk-button'
+            = link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button'
+  / ul.uk-list-space
+  /   - if site.active
+  /     li.uk-list.uk-icon-check.list-icon Site stats is active
+  /   - else
+  /     li.uk-list.uk-icon-times.list-icon Site stats is disable
+  /   li.uk-list.list-url Url: #{site.url}
   

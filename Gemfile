@@ -12,6 +12,8 @@ gem 'npm-pipeline-rails'
 gem 'slim-rails'
 gem 'resque'
 
+gem 'kaminari'
+
 group :development, :test do
   gem 'pry-rails'
 end

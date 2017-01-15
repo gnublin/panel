@@ -6,6 +6,7 @@ class Admin::AccountsController < ApplicationController
 
   def index
      @users = params[:admin] == 'true' ? User.where(admin: true) : User.all
+     @users = @users.page(params[:page]).per(5)
   end
 
   def show
@@ -23,6 +24,7 @@ class Admin::AccountsController < ApplicationController
         format.html { redirect_to admin_account_path(@user), notice: "user #{@user['email']} was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else
+        p @user.errors
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -61,14 +63,14 @@ class Admin::AccountsController < ApplicationController
 
     def set_user
       @user = User.find(params[:id])
-      # @site = Site.where(id: params[:id], user_id: current_user.id)
     end
 
     def user_params
-      unless params[:user][:password].nil?
+      if params[:user][:password].empty?
         params[:user].delete "password"
         params[:user].delete "password_confirmation"
       end
+      p params
       params.require(:user).permit(:email, :password, :password_confirmation, :admin, :locked_at, :failed_attempts)
     end
 end

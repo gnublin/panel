@@ -5,6 +5,11 @@ class SitesController < ApplicationController
 
   def index
     @sites = params[:active] == 'true' ? Site.where(active: true, user_id: current_user.id) : Site.where(user_id: current_user.id)
+    @all_pages={}
+    @sites.each do |site|
+      @all_pages[site.id] = Page.where(site_id: site.id)
+    end
+    p @all_pages
   end
 
   def show

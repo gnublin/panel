@@ -6,8 +6,8 @@ html
     = stylesheet_link_tag 'application', media: 'all'
 
   body
-    div Panel
     nav.uk-navbar.uk-navbar-attached.uk-margin-bottom
+      .uk-navbar-brand Panel
       ul.uk-navbar-nav
         li= link_to 'Sites', root_path, class: "uk-button "
         - if user_admin?

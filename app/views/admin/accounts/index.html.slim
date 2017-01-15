@@ -1,10 +1,24 @@
 h1 Accounts
+
 ul.uk-subnav.uk-subnav-pill
   li= link_to 'New user', new_admin_account_path, class: 'uk-button uk-button-tidy-menu'
   - if params[:admin] == 'true'
     li= link_to 'Show all accounts', admin_accounts_path(admin: false), class: 'uk-button uk-button-tidy-menu'
   - else
     li= link_to 'Show only admin accounts', admin_accounts_path(admin: true), class: 'uk-button uk-button-tidy-menu'
+
+- if request.params['admin']
+  - admin=true
+
+ul.uk-pagination.uk-pagination-left
+  - if @users.total_pages > 1
+    - @users.total_pages.times do |page|
+      - page = page + 1 
+      - if page == request.params['page']
+        li.uk-active= link_to page, admin_accounts_path(page: page, admin: admin)
+      - else 
+        li= link_to page, admin_accounts_path(page: page, admin: admin)
+
 
 table.uk-table.uk-table-striped
   tr
@@ -13,7 +27,7 @@ table.uk-table.uk-table-striped
     th
       |Admin
     th
-
+  - paginate @users
   - @users.each do |user|
     tr
       td
