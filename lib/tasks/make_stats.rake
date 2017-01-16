@@ -1,8 +1,7 @@
 namespace :make_stats do
   desc "get stats"
   task get: :environment do
-    args = {'url' => 'localhost'}
-    MakeStatsJob.perform_later args
+    MakeStatsJob.perform_later 'localhost'
   end
 
 end

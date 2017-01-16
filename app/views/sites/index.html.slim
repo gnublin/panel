@@ -9,14 +9,21 @@ ul.uk-subnav.uk-subnav-pill
 table.uk-table.uk-table-striped
   tr
     th
+      |Ations
+    th
       |Site
     th
       |Active
     th
-      |Pages of site
+      |Pages
     th 
   - @sites.each do |site|
     tr
+      td
+        = link_to edit_site_path(site), class: 'uk-button uk-button-link' do 
+          i.uk-icon-pencil
+        = link_to site, method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button uk-button-link' do
+          i.uk-icon-times
       td= site.name
       td
         -if site.active
@@ -24,10 +31,13 @@ table.uk-table.uk-table-striped
         -else
           li.uk-list.uk-icon-times.list-icon
       td 
-        |dsq
+        - if @all_pages[site.id].size >= 1
+          ul.uk-list
+            - @all_pages[site.id].each do |page|
+                li= page.title
       td         
-        = link_to 'Pages of site', site_pages_path(site, all: true), class: 'uk-button'
-        button< data-uk-modal="{target:'#more-#{site.id}'}" class="uk-button" More
+        = link_to 'Pages info', site_pages_path(site, all: true), class: 'uk-button'
+        button< data-uk-modal="{target:'#more-#{site.id}'}" class="uk-button" More info
         .uk-modal id="more-#{site.id}"
           .uk-modal-dialog
             table.uk-table.uk-table-striped
