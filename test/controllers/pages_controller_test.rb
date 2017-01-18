@@ -20,20 +20,9 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
     get site_pages_url(@site)
     assert_response :ok
-    assert_select 'h1', 'Pages'
+    assert_select 'h1', /Pages of.*/
     assert_select 'a', 'New page'
     assert_select 'a', 'Show only active pages'
-    assert_select 'h2', 'About'
-    assert_select 'h2', 'About_disable'
-    assert_select 'h2', 'My page'
-    assert_select 'ul.uk-list-space' do |elements|
-      elements.each do |element|
-        assert_select element, 'li.list-icon', /page stats is [active|disable]/
-        assert_select element, 'li.list-url', /Url: #{@site['url']}\/.*/
-        assert_select element, 'li.list-basic-login', /basic_auth:.*/
-        assert_select element, 'li.list-basic-password', /basic_password:.*/
-      end
-    end
   end
 
   def test_show_page

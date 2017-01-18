@@ -5,6 +5,12 @@ class PagesController < ApplicationController
   # GET /pages.json
   def index
     @pages = params[:active] == 'true' ? @site.pages.where(active: true) : @site.pages
+    per_page = params[:per_page] ? params[:per_page] : 5
+    @pages = @pages.page(params[:page]).per(per_page)
+    if per_page.to_i > 15
+      per_page = @pages.total_count
+      redirect_to site_pages_path(per_page: per_page, active: params[:active])
+    end
   end
 
   # GET /pages/1

@@ -1,4 +1,5 @@
-h1 Pages
+h1= "Pages of #{@site.name} site"
+
 ul.uk-subnav.uk-subnav-pill
   li= link_to 'New page', new_site_page_path
   - if params[:active] == 'true'
@@ -6,17 +7,80 @@ ul.uk-subnav.uk-subnav-pill
   - else
     li= link_to 'Show only active pages', site_pages_path(active: true)
 
-- @pages.each do |page|
-  h2= page.title.capitalize
-  ul.uk-subnav.uk-subnav
-    li= link_to 'Return to site', sites_path, class: 'uk-button'
-    li= link_to 'Edit', edit_site_page_path(page.site, page), class: 'uk-button'
-    li= link_to 'Destroy', [page.site, page], method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button'
-  ul.uk-list-space
-    - if page.active
-      li.uk-list.uk-icon-check.list-icon page stats is active
-    - else
-      li.uk-list.uk-icon-times.list-icon page stats is disable
-    li.uk-list.list-url Url: #{@site.url}/#{page.url}
-    li.uk-list.list-basic-login basic_auth: #{page.basic_auth}
-    li.uk-list.list-basic-password basic_password: #{page.basic_password}
+- active = request.params['active'] if request.params['active']
+
+ul.uk-pagination.uk-pagination-left
+  div.uk-button-dropdown data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false"
+    button.uk-button 
+      |Per page
+      i.uk-icon-caret-down<
+    div.uk-dropdown aria-hidden="true"
+      ul.uk-nav.uk-nav-dropdown
+        - total = @pages.total_count/5
+        - total = total - 1 if @pages.total_count%5 == 0
+        - total.times do |t|
+          - num_per = (t+1)*5
+          li= link_to num_per, site_pages_path(active: active, per_page: num_per)
+        li= link_to 'all', site_pages_path(active: active, per_page: @pages.total_count)
+  - if @pages.total_pages > 1
+    - @pages.total_pages.times do |page|
+      - page = page + 1
+      - req_page = request.params['page'] ? request.params['page'].to_i : 1
+      - if page == req_page
+        li.uk-active= link_to page, site_pages_path(page: page, active: active, per_page: request.params['per_page'])
+      - else 
+        li= link_to page, site_pages_path(page: page, active: active, per_page: request.params['per_page'])
+
+table.uk-table.uk-table-striped
+  tr
+    th
+      |Ations
+    th
+      |Page
+    th
+      |Active
+    th
+      |
+  - @pages.each do |site_page|
+    tr
+      td
+        = link_to edit_site_page_path(site_page.site, site_page), class: 'uk-button uk-button-link' do 
+          i.uk-icon-pencil
+        = link_to [site_page.site, site_page], method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button-link' do
+          i.uk-icon-times
+      td= "#{@site.url}/#{site_page.title}"
+      td
+        - if site_page.active
+          li.uk-list.uk-icon-check.list-icon
+        - else
+          li.uk-list.uk-icon-times.list-icon
+      td         
+        button< data-uk-modal="{target:'#more-#{site_page.id}'}" class="uk-button" More info
+        .uk-modal id="more-#{site_page.id}"
+          .uk-modal-dialog
+            table.uk-table.uk-table-striped
+              tr
+                th
+                  |Page insformations:
+                th
+              tr
+                td Title:
+                td= site_page.title
+              tr
+                td Url:
+                td= "#{@site.url}/#{site_page.url}"
+              tr
+                td Active stats:
+                td
+                  - if site_page.active
+                    li.uk-list.uk-icon-check.list-icon  Page stats is active
+                  - else
+                    li.uk-list.uk-icon-times.list-icon  Page stats is disable
+              tr
+                td Create at:
+                td= site_page.created_at
+              tr
+                td Last update:
+                td= site_page.updated_at
+            = link_to 'Edit', edit_site_page_path(site_page.site, site_page), class: 'uk-button'
+            = link_to 'Destroy', [site_page.site, site_page], method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button uk-button-danger'  

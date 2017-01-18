@@ -1,23 +1,36 @@
 h1 Accounts
 
 ul.uk-subnav.uk-subnav-pill
-  li= link_to 'New user', new_admin_account_path, class: 'uk-button uk-button-tidy-menu'
+  li= link_to 'New user', new_admin_account_path, class: 'uk-button uk-button'
   - if params[:admin] == 'true'
-    li= link_to 'Show all accounts', admin_accounts_path(admin: false), class: 'uk-button uk-button-tidy-menu'
+    li= link_to 'Show all accounts', admin_accounts_path(admin: false), class: 'uk-button uk-button'
   - else
-    li= link_to 'Show only admin accounts', admin_accounts_path(admin: true), class: 'uk-button uk-button-tidy-menu'
+    li= link_to 'Show only admin accounts', admin_accounts_path(admin: true), class: 'uk-button uk-button'
 
-- if request.params['admin']
-  - admin=true
-
+- admin = request.params['admin'] if request.params['admin']
 ul.uk-pagination.uk-pagination-left
+  div.uk-button-dropdown data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false"
+    button.uk-button 
+      |Per page
+      i.uk-icon-caret-down<
+    div.uk-dropdown aria-hidden="true"
+      ul.uk-nav.uk-nav-dropdown
+        - total = @users.total_count/5
+        - total = total - 1 if @users.total_count%5 == 0
+        - total = total > 3 ? 3 : total
+        - total.times do |t|
+          - num_per = (t+1)*5
+          li= link_to num_per, admin_accounts_path(admin: admin, per_page: num_per)
+        - if total < 3
+        li= link_to 'all', admin_accounts_path(admin: admin, per_page: @users.total_count)
   - if @users.total_pages > 1
     - @users.total_pages.times do |page|
       - page = page + 1 
-      - if page == request.params['page']
-        li.uk-active= link_to page, admin_accounts_path(page: page, admin: admin)
+      - req_page = request.params['page'] ? request.params['page'].to_i : 1
+      - if page == req_page
+        li.uk-active= link_to page, admin_accounts_path(page: page, admin: admin, per_page: request.params['per_page'])
       - else 
-        li= link_to page, admin_accounts_path(page: page, admin: admin)
+        li= link_to page, admin_accounts_path(page: page, admin: admin, per_page: request.params['per_page'])
 
 
 table.uk-table.uk-table-striped

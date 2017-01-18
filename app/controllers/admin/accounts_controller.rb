@@ -6,7 +6,11 @@ class Admin::AccountsController < ApplicationController
 
   def index
      @users = params[:admin] == 'true' ? User.where(admin: true) : User.all
-     @users = @users.page(params[:page]).per(5)
+     per_page = params[:per_page] ? params[:per_page] : 5
+     if per_page.to_i > 15
+       per_page = 15
+     end
+     @users = @users.page(params[:page]).per(per_page)
   end
 
   def show
@@ -65,7 +69,7 @@ class Admin::AccountsController < ApplicationController
     end
 
     def user_params
-      if params[:user][:password].nil? || params[:user][:password].empty?
+      if params[:user][:password].nil? || params[:user][:password].empty?
         params[:user].delete "password"
         params[:user].delete "password_confirmation"
       end

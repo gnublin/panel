@@ -6,6 +6,33 @@ ul.uk-subnav.uk-subnav-pill
   - else
     li= link_to 'Show only active sites', sites_path(active: true)
 
+- active = request.params['active'] if request.params['active']
+
+ul.uk-pagination.uk-pagination-left
+  div.uk-button-dropdown data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false"
+    button.uk-button 
+      - dis_per = request.params['per_page'] ? request.params['per_page'] : "Per page"
+      = dis_per
+      i.uk-icon-caret-down<
+    div.uk-dropdown aria-hidden="true"
+      ul.uk-nav.uk-nav-dropdown
+        - total = @sites.total_count/5
+        - total = total - 1 if @sites.total_count%5 == 0
+        - total = total > 3 ? 3 : total
+        - total.times do |t|
+          - num_per = (t+1)*5
+          li= link_to num_per, sites_path(active: active, per_page: num_per)
+        - if total < 3
+          li= link_to 'all', sites_path(active: active, per_page: @sites.total_count)
+  - if @sites.total_pages > 1
+    - @sites.total_pages.times do |site|
+      - site = site + 1 
+      - req_page = request.params['page'] ? request.params['page'].to_i : 1
+      - if site == req_page
+        li.uk-active= link_to site, sites_path(page: site, active: active, per_page: request.params['per_page'])
+      - else 
+        li= link_to site, sites_path(page: site, active: active, per_page: request.params['per_page'])
+
 table.uk-table.uk-table-striped
   tr
     th
@@ -15,7 +42,7 @@ table.uk-table.uk-table-striped
     th
       |Active
     th
-      |Pages
+      |Number of page
     th 
   - @sites.each do |site|
     tr
@@ -26,17 +53,14 @@ table.uk-table.uk-table-striped
           i.uk-icon-times
       td= site.name
       td
-        -if site.active
+        - if site.active
           li.uk-list.uk-icon-check.list-icon
-        -else
+        - else
           li.uk-list.uk-icon-times.list-icon
       td 
-        - if @all_pages[site.id].size >= 1
-          ul.uk-list
-            - @all_pages[site.id].each do |page|
-                li= page.title
+        = @all_pages[site.id]
       td         
-        = link_to 'Pages info', site_pages_path(site, all: true), class: 'uk-button'
+        = link_to 'View pages of site', site_pages_path(site, all: true), class: 'uk-button'
         button< data-uk-modal="{target:'#more-#{site.id}'}" class="uk-button" More info
         .uk-modal id="more-#{site.id}"
           .uk-modal-dialog
@@ -55,7 +79,7 @@ table.uk-table.uk-table-striped
                 td Last update:
                 td= site.updated_at
             = link_to 'Edit', edit_site_path(site), class: 'uk-button'
-            = link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button'
+            = link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button uk-button-danger'
   / ul.uk-list-space
   /   - if site.active
   /     li.uk-list.uk-icon-check.list-icon Site stats is active

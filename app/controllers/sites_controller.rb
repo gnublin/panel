@@ -6,10 +6,15 @@ class SitesController < ApplicationController
   def index
     @sites = params[:active] == 'true' ? Site.where(active: true, user_id: current_user.id) : Site.where(user_id: current_user.id)
     @all_pages={}
-    @sites.each do |site|
-      @all_pages[site.id] = Page.where(site_id: site.id)
+    per_page = params[:per_page] ? params[:per_page] : 5
+    if per_page.to_i > 15
+      per_page = 15
+      redirect_to sites_path(per_page: per_page, active: params[:active])
     end
-    #p @all_pages
+    @sites.each do |site|
+      @all_pages[site.id] = Page.where(site_id: site.id).size
+    end
+    @sites = @sites.page(params[:page]).per(per_page)
   end
 
   def show
