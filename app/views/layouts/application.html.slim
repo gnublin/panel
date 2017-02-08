@@ -22,10 +22,11 @@ html
               li= link_to 'Edit', edit_user_registration_path
               li= link_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }
     .uk-container.uk-container-center
-      - if notice
-        p.uk-alert= notice
-      - if alert
-        p.uk-alert.uk-alert-warning= alert
+      .uk-animation-fade.uk-animation-reverse.uk-animation-15
+        - if notice
+          p.uk-alert= notice
+        - if alert
+          p.uk-alert.uk-alert-warning= alert
 
       = yield
 

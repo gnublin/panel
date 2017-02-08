@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :set_page, only: [:show, :edit, :update, :destroy]
+  before_action :set_page, only: [:show, :edit, :update, :destroy, :page_check_job]
   before_action :set_site
   # GET /pages
   # GET /pages.json
@@ -8,7 +8,7 @@ class PagesController < ApplicationController
     per_page = params[:per_page] ? params[:per_page] : 5
     @pages = @pages.page(params[:page]).per(per_page)
     if per_page.to_i > 15
-      per_page = @pages.total_count
+      per_page = 15
       redirect_to site_pages_path(per_page: per_page, active: params[:active])
     end
   end
@@ -68,6 +68,27 @@ class PagesController < ApplicationController
     end
   end
 
+  def run_check_job
+
+    page = Page.find(params[:page_id])
+    site = Site.find(params[:site_id])
+    params.delete :manual
+    manual = params[:manual]
+    if MakeStatsJob.perform_later site, page, manual
+      notice = "Check ran"
+    else
+      notice = "Check not ran"
+    end
+
+    redirect_to site_pages_path(active: params[:active], per_page: params[:per_page]), notice: notice
+
+    # if MakeStatsJob.perform_later Site.find(params[:site_id]), Site.find(params[:site_id]))
+    #   redirect_to site_pages_path(: params[:run][:all]), notice: "Check from ran" }
+    # end
+  end
+
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_page
@@ -80,6 +101,10 @@ class PagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
-      params.require(:page).permit(:site_id, :title, :url, :active, :email, :basic_auth, :basic_password)
+      page_params = params.require(:page).permit(:site_id, :title, :url, :active, :email, :basic_auth, :basic_password, :size, :device)
+      if !page_params[:size] || page_params[:size].empty?
+        page_params[:size] = "1280x1024"
+      end
+      page_params
     end
 end

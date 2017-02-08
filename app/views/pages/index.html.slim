@@ -1,3 +1,9 @@
+ul.uk-breadcrumb
+  li
+    a=> link_to "Sites", root_path
+    span> >>
+    a.uk-active= link_to "Pages"
+
 h1= "Pages of #{@site.name} site"
 
 ul.uk-subnav.uk-subnav-pill
@@ -48,7 +54,7 @@ table.uk-table.uk-table-striped
           i.uk-icon-pencil
         = link_to [site_page.site, site_page], method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button-link' do
           i.uk-icon-times
-      td= "#{@site.url}/#{site_page.title}"
+      td= "#{@site.url}/#{site_page.url}"
       td
         - if site_page.active
           li.uk-list.uk-icon-check.list-icon
@@ -77,10 +83,21 @@ table.uk-table.uk-table-striped
                   - else
                     li.uk-list.uk-icon-times.list-icon  Page stats is disable
               tr
+                td Screen size:
+                td
+                  =site_page.size
+              tr
+                td Device:
+                td
+                  =site_page.device&.capitalize
+              tr
                 td Create at:
                 td= site_page.created_at
               tr
                 td Last update:
                 td= site_page.updated_at
             = link_to 'Edit', edit_site_page_path(site_page.site, site_page), class: 'uk-button'
-            = link_to 'Destroy', [site_page.site, site_page], method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button uk-button-danger'  
+            = link_to 'Destroy', [site_page.site, site_page], method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button uk-button-danger'
+        - if @site.active && site_page.active
+          =< link_to "Run check", site_page_run_check_job_path(site_page.site, site_page, manual: true, per_page: request.params['per_page'], active: request.params['active']), class: 'uk-button'
+        =< link_to "View Run(s)", site_page_runs_path(site_page.site, site_page), class: 'uk-button'

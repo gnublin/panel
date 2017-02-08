@@ -38,7 +38,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     get new_site_page_url(@site)
     assert_response :ok
     assert_select 'form'
-    assert_select 'form input', 9
+    assert_select 'form input', 10
     assert_select '[data-disable-with=?]', 'Create Page'
     assert_select 'a', 'Back'
   end
@@ -49,7 +49,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     get edit_site_page_url(@site, @page)
     assert :ok
     assert_select 'form'
-    assert_select 'form input', 10
+    assert_select 'form input', 11
     assert_select '[data-disable-with=?]', 'Update Page'
     assert_select 'a', 'Back'
   end

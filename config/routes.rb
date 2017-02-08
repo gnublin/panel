@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :sites do
-    resources :pages
+    resources :pages do
+      get "run_check_job"
+      resources :runs, shallow: true
+    end
   end
   root 'sites#index'
+
 end
