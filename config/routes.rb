@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :sites do
     resources :pages do
-      get "run_check_job"
+      post :run_check_job
       resources :runs, shallow: true
     end
   end

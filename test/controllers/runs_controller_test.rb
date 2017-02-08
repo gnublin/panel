@@ -10,7 +10,7 @@ class RunsControllerTest < ActionDispatch::IntegrationTest
 
   def test_run_check_job
     post site_page_run_check_job_path(1, 1)
-    assert_response :ok
+    assert_response :redirect
   end
 
 

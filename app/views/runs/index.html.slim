@@ -22,6 +22,8 @@ ul.uk-pagination.uk-pagination-left
         - total = total - 1 if @runs.total_count%5 == 0
         - total.times do |t|
           - num_per = (t+1)*15
+          li= link_to num_per, site_page_runs_path(per_page: num_per)
+        li= link_to 'all', site_page_runs_path(per_page: @runs.total_count)
   - if @runs.total_pages > 1
     - @runs.total_pages.times do |page|
       - page = page + 1

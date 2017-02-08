@@ -99,5 +99,5 @@ table.uk-table.uk-table-striped
             = link_to 'Edit', edit_site_page_path(site_page.site, site_page), class: 'uk-button'
             = link_to 'Destroy', [site_page.site, site_page], method: :delete, data: { confirm: 'Are you sure?' }, class: 'uk-button uk-button-danger'
         - if @site.active && site_page.active
-          =< link_to "Run check", site_page_run_check_job_path(site_page.site, site_page, manual: true, per_page: request.params['per_page'], active: request.params['active']), class: 'uk-button'
+          =< link_to "Run check", site_page_run_check_job_path(site_page.site, site_page, manual: true, per_page: request.params['per_page'], active: request.params['active']),method: :post, class: 'uk-button'
         =< link_to "View Run(s)", site_page_runs_path(site_page.site, site_page), class: 'uk-button'
