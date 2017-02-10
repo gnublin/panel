@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170208070203) do
+ActiveRecord::Schema.define(version: 20170210065816) do
 
   create_table "pages", force: :cascade do |t|
     t.string   "title"
@@ -33,6 +33,9 @@ ActiveRecord::Schema.define(version: 20170208070203) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean  "manual"
+    t.string   "size"
+    t.string   "device"
+    t.string   "url"
     t.index ["page_id"], name: "index_runs_on_page_id"
   end
 

@@ -15,10 +15,13 @@ class MakeStatsJob < ApplicationJob
     case page.device
     when "tablet"
       device_format = "--tablet"
+      device = "Tablet"
     when "phone"
       device_format = "--phone"
+      device = "Phone"
     else
       device_format = ""
+      device = "Computer"
     end
 
     Resque.logger.info "#{url}"
@@ -26,19 +29,7 @@ class MakeStatsJob < ApplicationJob
     Resque.logger.info "#{size_format}"
 
     `phantomas #{url} --har=#{temp_file.path} --viewport=#{size_format} #{device_format}`
-    file = File.open(temp_file.path, "r")
-
-    Run.create(page: page, har: JSON.parse(IO.readlines(temp_file.path)[0]), manual: manual)
-
-    # p temp_name
-# faire un bouton run
-# lance un job avec page
-# t = TempFile.new
-# phantomas avec param de page
-# stocker en BDD
-# ...
-# close(false)
-
+    Run.create(page: page, har: JSON.parse(IO.readlines(temp_file.path)[0]), manual: manual, device: device, size: size_format, url: url)
 
     Resque.logger.info "Message processed"
     Resque.logger.info "----------------"

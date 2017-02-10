@@ -72,7 +72,6 @@ class PagesController < ApplicationController
 
     page = Page.find(params[:page_id])
     site = Site.find(params[:site_id])
-    params.delete :manual
     manual = params[:manual]
     if MakeStatsJob.perform_later site, page, manual
       notice = "Check ran"
@@ -81,10 +80,6 @@ class PagesController < ApplicationController
     end
 
     redirect_to site_pages_path(active: params[:active], per_page: params[:per_page]), notice: notice
-
-    # if MakeStatsJob.perform_later Site.find(params[:site_id]), Site.find(params[:site_id]))
-    #   redirect_to site_pages_path(: params[:run][:all]), notice: "Check from ran" }
-    # end
   end
 
 
@@ -102,7 +97,7 @@ class PagesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
       page_params = params.require(:page).permit(:site_id, :title, :url, :active, :email, :basic_auth, :basic_password, :size, :device)
-      if !page_params[:size] || page_params[:size].empty?
+      if !page_params[:size] || page_params[:size].empty?
         page_params[:size] = "1280x1024"
       end
       page_params
