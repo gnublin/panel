@@ -47,6 +47,8 @@ h4 Url: #{@site.url}/#{@page.url}
         |Create at
       th 
         |Type
+      th 
+        |Chart
     - @runs.each do |run|
       tr
         td
@@ -61,5 +63,7 @@ h4 Url: #{@site.url}/#{@page.url}
             |Manual check
           -else
             |Scheduled check
+        td 
+          =< link_to "View Chart", run_path(run.id), class: 'uk-button'
 - else
   p No run found for this page

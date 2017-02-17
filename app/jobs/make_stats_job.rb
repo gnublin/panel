@@ -29,8 +29,8 @@ class MakeStatsJob < ApplicationJob
     Resque.logger.info "#{size_format}"
 
     `phantomas #{url} --har=#{temp_file.path} --viewport=#{size_format} #{device_format}`
-    Run.create(page: page, har: JSON.parse(IO.readlines(temp_file.path)[0]), manual: manual, device: device, size: size_format, url: url)
-
+    Run.create(page: page, har: IO.readlines(temp_file.path)[0], manual: manual, device: device, size: size_format, url: url)
+    `rm #{temp_file}`
     Resque.logger.info "Message processed"
     Resque.logger.info "----------------"
   end
