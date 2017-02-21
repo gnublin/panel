@@ -7,6 +7,7 @@ class MakeStatsJob < ApplicationJob
     Resque.logger.info "Message arrived"
     size_format = "1280x1024"
     device_format = "computer"
+    user_agent = "phantomas/0.6.0 (PhantomJS/1.9.0; linux 64bit))"
     temp_file = Tempfile.new
     temp_file.close
     url = "#{site.url}/#{page.url}"
@@ -22,6 +23,10 @@ class MakeStatsJob < ApplicationJob
     else
       device_format = ""
       device = "Computer"
+    end
+
+    if page.useragent
+      user_agent = "page.useragent - phantomas/0.6.0 (PhantomJS/1.9.0; linux 64bit))"
     end
 
     Resque.logger.info "#{url}"

@@ -50,6 +50,8 @@ table.uk-table.uk-table-striped
     th
       |Device
     th
+      |User-agent
+    th
       |
   - @pages.each do |site_page|
     tr
@@ -64,6 +66,9 @@ table.uk-table.uk-table-striped
           li.uk-list.uk-icon-check.list-icon
         - else
           li.uk-list.uk-icon-times.list-icon
+      td= site_page.size
+      td= site_page.device
+      td= site_page.useragent
       td         
         button< data-uk-modal="{target:'#more-#{site_page.id}'}" class="uk-button" More info
         .uk-modal id="more-#{site_page.id}"

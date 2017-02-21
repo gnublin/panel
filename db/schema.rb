@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210065816) do
+ActiveRecord::Schema.define(version: 20170217072315) do
 
   create_table "pages", force: :cascade do |t|
     t.string   "title"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20170210065816) do
     t.integer  "site_id"
     t.string   "size"
     t.string   "device"
-    t.index ["site_id"], name: "index_pages_on_site_id"
+    t.string   "useragent"
   end
 
   create_table "runs", force: :cascade do |t|

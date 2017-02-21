@@ -21,7 +21,7 @@ class RunsController < ApplicationController
     @har["log"]["entries"].each do |h_entry|
       start_time = Time.iso8601 h_entry['startedDateTime']
       delta = h_entry['time']/(1000).to_f
-      end_time = start_time + 0.3
+      end_time = start_time
       start_time = start_time.strftime("%Y-%m-%d %H:%M:%S.%L")
       end_time =  end_time.strftime("%Y-%m-%d %H:%M:%S.%L")
       p start_time
