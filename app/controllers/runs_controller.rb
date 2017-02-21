@@ -17,23 +17,19 @@ class RunsController < ApplicationController
   def show
     @run = set_run
     @har = JSON.parse(@run.har)
-    @new_har = Array.new
+    @new_har = Hash.new
     @har["log"]["entries"].each do |h_entry|
       start_time = Time.iso8601 h_entry['startedDateTime']
       delta = h_entry['time']/(1000).to_f
-      end_time = start_time
-      start_time = start_time.strftime("%Y-%m-%d %H:%M:%S.%L")
-      end_time =  end_time.strftime("%Y-%m-%d %H:%M:%S.%L")
-      p start_time
-      p end_time
-
-      # start_time = Time.iso8601 h_entry['startedDateTime']
-      # start_time = start_time.strftime("%Y%m%d%H%M%S%3N")
-      # end_time = (start_time.to_i + h_entry['time'])
-      #
-       @new_har << [h_entry['request']['url'], start_time, end_time]
+      end_time = start_time + delta
+      start_time = start_time.strftime("%s%L")
+      end_time =  end_time.strftime("%s%L")
+      @new_har[h_entry['request']['url']] = [start_time, end_time]
     end
-    p @new_har
+    respond_to do |format|
+      format.html { @new_har }
+      format.json { render json: @new_har.to_json}
+    end
   end
 
   def destroy
