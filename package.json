@@ -5,14 +5,14 @@
     "start": "brunch watch",
     "build": "brunch build --production"
   },
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "auto-reload-brunch": "^2.0.0",
     "brunch": "^2.5.1",
     "copycat-brunch": "^1.1.0",
-    "css-brunch": "^2.0.0",
-    "javascript-brunch": "^2.0.0",
-    "sass-brunch": "^2.7.0",
+    "jquery": "^3.1.1",
+    "jquery-ujs": "^1.2.2",
+    "sass-brunch": "^2.10.4",
+    "typescript-brunch": "^2.2.0",
     "uikit": "^2.27.2"
   }
 }
