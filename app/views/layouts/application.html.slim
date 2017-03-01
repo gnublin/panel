@@ -3,7 +3,7 @@ html
   head
     title Panel
     = csrf_meta_tags
-    = stylesheet_link_tag 'application', media: 'all'
+    link type="text/stylesheet" rel="stylesheet" href="/assets/application.css"
 
   body
     nav.uk-navbar.uk-navbar-attached.uk-margin-bottom
@@ -30,4 +30,7 @@ html
 
       = yield
 
-    = javascript_include_tag 'application'
+    script type="text/javascript" src="/assets/vendor.js"
+    script type="text/javascript" src="/assets/application.js"
+    javascript:
+      require('application').init()

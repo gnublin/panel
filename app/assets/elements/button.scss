@@ -1,0 +1,13 @@
+@import '_variables';
+
+.uk-button-tidy-menu {
+  background-color: $button-tidy-menu-bacgroung-color;
+  color: $button-tidy-menu-color;
+}
+
+/* Hover */
+.uk-button-tidy-menu:hover,
+.uk-button-tidy-menu:focus {
+    background-color: $button-tidy-menu-hover-background;
+    color: $button-tidy-menu-hover-color;
+}

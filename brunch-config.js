@@ -1,28 +1,46 @@
 // See http://brunch.io for documentation.
 module.exports = {
   paths: {
-    watched: ['app/brunch'],
-    public: 'vendor/assets'
+    watched: ['app/assets'],
+    public: 'public/assets'
   },
-
-  modules: {
-    wrapper: false
-  },
-
   files: {
-    javascripts: {joinTo: 'javascripts/brunch/app.js'},
-    stylesheets: {joinTo: 'stylesheets/brunch/app.css'}
+    javascripts: {
+      joinTo: {
+        'application.js': /^app/,
+        'vendor.js': /^(?!app)/
+      }
+    },
+    stylesheets: { joinTo: 'application.css' }
   },
-
+  conventions: {
+    assets: /^app\/assets\/static\//
+  },
+  modules: {
+    nameCleaner: path => path.replace(/^app\/assets\//, '')
+  },
   plugins: {
+    autoReload: {
+      enabled: true
+    },
+    typescript: {},
     sass: {
+      mode: 'native',
       options: {
-        includePaths: ['node_modules']
+        includePaths: ['app/assets', 'node_modules']
       }
     },
     copycat: {
-      fonts: ["node_modules/uikit/dist/fonts"],
-      onlyChanged: true
+      fonts: ['node_modules/uikit/dist/fonts/']
+    }
+  },
+  npm: {
+    static: [
+      'uikit/dist/js/uikit',
+      'jquery-ujs/src/rails'
+    ],
+    globals: {
+      jQuery: 'jquery'
     }
   }
 }
