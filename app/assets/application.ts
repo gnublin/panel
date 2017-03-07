@@ -1,7 +1,10 @@
-declare function require(what: string): any;
+import 'uikit/dist/js/uikit'
+import 'jquery-ujs/src/rails'
+import {init as graphInit} from './graph'
 
 export function init() {
   // Load "global" packages
-  require('uikit/dist/js/uikit')
-  require('jquery-ujs/src/rails')
+  if (jQuery('#chart_area').length > 0) {
+    graphInit()
+  }
 }

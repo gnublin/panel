@@ -6,9 +6,12 @@
     "build": "brunch build --production"
   },
   "dependencies": {
+    "@types/jquery": "^2.0.40",
     "auto-reload-brunch": "^2.0.0",
     "brunch": "^2.5.1",
     "copycat-brunch": "^1.1.0",
+    "d3": "^4.7.0",
+    "d3-timeline": "^1.0.1",
     "jquery": "^3.1.1",
     "jquery-ujs": "^1.2.2",
     "sass-brunch": "^2.10.4",
