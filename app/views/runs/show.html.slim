@@ -14,7 +14,5 @@ ul.uk-pagination.uk-pagination-left
       ul.uk-nav.uk-nav-dropdown
         -@filter_type.each do |f_type|
           li= link_to "#{f_type}", '#', :onclick => "display_el(\"#{f_type}\")"
-        / li= link_to "#{f_type}", '#', :onclick => "document.getElementById('chart_area').setAttribute('data-filter', \"#{f_type}\")"
-        / li= link_to "none", '#', :onclick => "document.getElementById('chart_area').setAttribute('data-filter', 'none')"
           
 #chart_area data-filter="none"

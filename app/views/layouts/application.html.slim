@@ -9,7 +9,16 @@ html
     javascript:
       function display_el(element_type) {
         var all_bstats = document.querySelector(".chart_area")
-        console.log(all_bstats)
+        var all_bstats_el = all_bstats.childNodes
+        for (var d = 0, e = all_bstats_el.length; d < e ; d++ ) {
+          is_in_array = element_type.indexOf(all_bstats_el[d].getAttribute("class"))
+          if (is_in_array > -1 || element_type == "all") {
+            all_bstats_el[d].style.display = "block"
+          }
+          else {
+            all_bstats_el[d].style.display = "none"
+          }
+        }
       }
 
     nav.uk-navbar.uk-navbar-attached.uk-margin-bottom

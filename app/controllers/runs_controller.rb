@@ -17,10 +17,8 @@ class RunsController < ApplicationController
   def show
     @run = set_run
     @har = JSON.parse(@run.har)
-    @filter_type = []
-    @har['log']['entries'].each do |f_entry|
-      @filter_type << f_entry['response']['content']['mimeType'] if ! @filter_type.include?(f_entry['response']['content']['mimeType'])
-    end
+    @filter_type = @har['log']['entries'].map{ |f_entry| f_entry['response']['content']['mimeType'] }.sort.uniq
+    @filter_type << "all"
     filter = params['filter'] || "none"
     @meta_data = {filter: filter}
     respond_to do |format|
