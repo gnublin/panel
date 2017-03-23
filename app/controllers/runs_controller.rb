@@ -18,7 +18,7 @@ class RunsController < ApplicationController
     @run = set_run
     @har = JSON.parse(@run.har)
     @filter_type = @har['log']['entries'].map{ |f_entry| f_entry['response']['content']['mimeType'] }.sort.uniq
-    @filter_type << "all"
+    @filter_type.unshift 'all'
     filter = params['filter'] || "none"
     @meta_data = {filter: filter}
     respond_to do |format|

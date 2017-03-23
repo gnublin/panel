@@ -13,6 +13,6 @@ ul.uk-pagination.uk-pagination-left
     div.uk-dropdown aria-hidden="true"
       ul.uk-nav.uk-nav-dropdown
         -@filter_type.each do |f_type|
-          li= link_to "#{f_type}", '#', :onclick => "display_el(\"#{f_type}\")"
+          li = link_to "#{f_type}", '#', data: { filter: f_type }
           
-#chart_area data-filter="none"
+#chart_area
