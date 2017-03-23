@@ -1,12 +1,20 @@
 
-= javascript_include_tag '//www.google.com/jsapi', 'chartkick'
-
 h1 Chart: #{@run.url}
 
 ul.uk-list.uk-list-space
   li.uk-list Device: #{@run.device}
   li.uk-list Screen size: #{@run.size}
   
-/ = @har
-/ = timeline [["Washington", "1789-04-29", "1797-03-03"],["Adams", "1797-02-03", "1801-03-03"],["Jefferson", "1801-03-03", "1809-03-03"]]
-= p @new_har
+ul.uk-pagination.uk-pagination-left
+  div.uk-button-dropdown data-uk-dropdown="{mode:'hover'}" aria-haspopup="true" aria-expanded="false"
+    button.uk-button
+      |Filter content type
+      i.uk-icon-caret-down<
+    div.uk-dropdown aria-hidden="true"
+      ul.uk-nav.uk-nav-dropdown
+        -@filter_type.each do |f_type|
+          li= link_to "#{f_type}", '#', :onclick => "display_el(\"#{f_type}\")"
+        / li= link_to "#{f_type}", '#', :onclick => "document.getElementById('chart_area').setAttribute('data-filter', \"#{f_type}\")"
+        / li= link_to "none", '#', :onclick => "document.getElementById('chart_area').setAttribute('data-filter', 'none')"
+          
+#chart_area data-filter="none"

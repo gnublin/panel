@@ -6,6 +6,12 @@ html
     link type="text/css" rel="stylesheet" href="/assets/application.css"
 
   body
+    javascript:
+      function display_el(element_type) {
+        var all_bstats = document.querySelector(".chart_area")
+        console.log(all_bstats)
+      }
+
     nav.uk-navbar.uk-navbar-attached.uk-margin-bottom
       .uk-navbar-brand Panel
       ul.uk-navbar-nav
@@ -33,4 +39,6 @@ html
     script type="text/javascript" src="/assets/vendor.js"
     script type="text/javascript" src="/assets/application.js"
     javascript:
-      require('application').init()
+      require('application').init("#{@meta_data.to_json}")
+
+    = yield :javascript

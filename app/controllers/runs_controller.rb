@@ -17,18 +17,15 @@ class RunsController < ApplicationController
   def show
     @run = set_run
     @har = JSON.parse(@run.har)
-    @new_har = Hash.new
-    @har["log"]["entries"].each do |h_entry|
-      start_time = Time.iso8601 h_entry['startedDateTime']
-      delta = h_entry['time']/(1000).to_f
-      end_time = start_time + delta
-      start_time = start_time.strftime("%s%L")
-      end_time =  end_time.strftime("%s%L")
-      @new_har[h_entry['request']['url']] = [start_time, end_time]
+    @filter_type = []
+    @har['log']['entries'].each do |f_entry|
+      @filter_type << f_entry['response']['content']['mimeType'] if ! @filter_type.include?(f_entry['response']['content']['mimeType'])
     end
+    filter = params['filter'] || "none"
+    @meta_data = {filter: filter}
     respond_to do |format|
-      format.html { @new_har }
-      format.json { render json: @new_har.to_json}
+      format.html { @meta_data }
+      format.json { render json: @har.to_json}
     end
   end
 
