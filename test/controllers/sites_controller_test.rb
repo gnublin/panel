@@ -64,7 +64,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
 
     sign_in @site.user
     post sites_url params: {site: {name: 'Test1', url: 'http://www.test1.com', active: true }}
-    assert_redirected_to site_url(Site.last)
+    assert_redirected_to site_pages_url(Site.last, all: true)
   end
 
   def test_update_page
