@@ -33,7 +33,7 @@ class SitesController < ApplicationController
 
     respond_to do |format|
       if @site.save
-        format.html { redirect_to site_path(@site), notice: "Site #{@site['name']} was successfully created." }
+        format.html { redirect_to site_pages_path(@site, all: true), notice: "Site #{@site['name']} was successfully created." }
         format.json { render :show, status: :created, location: @site }
       else
         format.html { render :new }

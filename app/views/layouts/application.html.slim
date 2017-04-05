@@ -33,6 +33,6 @@ html
     script type="text/javascript" src="/assets/vendor.js"
     script type="text/javascript" src="/assets/application.js"
     javascript:
-      require('application').init("#{@meta_data.to_json}")
+      require('application').init()
 
     = yield :javascript

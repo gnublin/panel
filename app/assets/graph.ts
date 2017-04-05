@@ -69,6 +69,7 @@ export function init() {
        .attr("class", function(d) {
          return d['response']['content']['mimeType']
        });
+
       svg.selectAll("text")
        .data(dataset)
        .enter()
@@ -89,10 +90,43 @@ export function init() {
       .attr("class", function(d) {
         return d['response']['content']['mimeType']
       });
+
+
+      var x = d3.time.scale().range([0, 600]);
+      var y = d3.scale.linear().range([1000, 0]);
+
+      function make_x_axis() {
+          return d3.svg.axis()
+              .scale(x)
+               .orient("bottom")
+               .ticks(5)
+      }
+
+      function make_y_axis() {
+          return d3.svg.axis()
+              .scale(y)
+              .orient("left")
+              .ticks(5)
+      }
+
+
+      svg.append("g")
+              .attr("class", "grid")
+              .attr("transform", "translate(0," + 200 + ")")
+              .call(make_x_axis()
+                  .tickSize(-200, 0, 0)
+                  .tickFormat("")
+              )
+
+          svg.append("g")
+              .attr("class", "grid")
+              .call(make_y_axis()
+                  .tickSize(-200, 0, 0)
+                  .tickFormat("")
+              )
+
     },
-
   });
-
 
 
   //     svg.selectAll("rect")
