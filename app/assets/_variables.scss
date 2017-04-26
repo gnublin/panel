@@ -3,4 +3,24 @@ $button-tidy-menu-bacgroung-color: #2773A5;
 $button-tidy-menu-hover-background: #4997CA;
 $button-tidy-menu-hover-color: white;
 
+
 $icon-font-path: '/assets/fonts';
+
+.color-red{
+  color: red;
+}
+
+.color-green{
+  color: green;
+}
+
+.color-blue{
+  color: blue;
+}
+
+.rotate-45 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.5)";
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

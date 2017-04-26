@@ -10,6 +10,6 @@ Rails.application.routes.draw do
       resources :runs, shallow: true
     end
   end
-  root 'sites#index'
+  root 'static#home'
 
 end

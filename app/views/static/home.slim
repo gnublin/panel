@@ -1,0 +1,21 @@
+
+h3="Your last stats"
+.uk-grid
+  - grid = 0
+  - @metrics.each do |title, metric|
+    - grid == 2 ? grid = 1 : grid = grid +1
+    div class="uk-width-1-#{grid}"
+      - next if metric[:load].nil?
+      - if metric[:load].size > 0
+        => "#{title}"
+        .uk-badge.uk-badge-notification last 5 checks 
+        br
+        = "Average: #{metric[:load][:average]} | "
+        => "Trend:"
+        - if metric[:load][:trend] == 'up'
+          i.uk-icon-arrow-up.color-red.rotate-45
+        - elsif metric[:load][:trend] == 'down'
+          i.uk-icon-arrow-right.color-green.rotate-45
+        - elsif metric[:load][:trend] == 'flat'
+          i.uk-icon-arrow-right.color-blue
+        br
