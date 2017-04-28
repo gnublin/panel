@@ -21,7 +21,7 @@ Metrics/ParameterLists:
 Style/MutableConstant:
   Enabled: false
 Metrics/LineLength:
-  Max: 120
+  Max: 160
 Metrics/AbcSize:
   Enabled: false
 Metrics/MethodLength:
