@@ -22,7 +22,6 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'h1', 'Sites'
     assert_select 'a', 'New site'
     assert_select 'a', 'Show only active sites'
-
   end
 
   def test_show_site
@@ -31,7 +30,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     get site_url(@site)
     assert_response :ok
     assert_select 'h1', 'Site My super site'
-
+    assert_select 'h1', 'Site My super site'
   end
 
   def test_new_site
@@ -80,5 +79,4 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     delete site_url(@site)
     assert_redirected_to sites_url
   end
-
 end

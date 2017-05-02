@@ -25,17 +25,27 @@ ActiveRecord::Schema.define(version: 20170217072315) do
     t.string   "size"
     t.string   "device"
     t.string   "useragent"
+    t.index ["site_id"], name: "index_pages_on_site_id"
   end
 
   create_table "runs", force: :cascade do |t|
     t.integer  "page_id"
     t.text     "har"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.boolean  "manual"
     t.string   "size"
     t.string   "device"
     t.string   "url"
+    t.integer  "requests"
+    t.integer  "postRequests"
+    t.integer  "httpsRequests"
+    t.integer  "notFound"
+    t.integer  "timeToFirstByte"
+    t.integer  "timeToLastByte"
+    t.integer  "bodySize"
+    t.integer  "contentLength"
+    t.integer  "httpTrafficCompleted"
     t.index ["page_id"], name: "index_runs_on_page_id"
   end
 

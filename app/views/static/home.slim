@@ -1,14 +1,12 @@
 
 h3="Your last stats"
 .uk-grid
-  - grid = 0
   - @metrics.each do |title, metric|
-    - grid == 2 ? grid = 1 : grid = grid +1
-    div class="uk-width-1-#{grid}"
       - next if metric[:load].nil?
-      - if metric[:load].size > 0
+      div class="uk-width-1-3"
+        - if metric[:load].size > 0
         => "#{title}"
-        .uk-badge.uk-badge-notification last 5 checks 
+        .uk-badge.uk-badge-notification last 10 checks 
         br
         = "Average: #{metric[:load][:average]} | "
         => "Trend:"
@@ -18,4 +16,3 @@ h3="Your last stats"
           i.uk-icon-arrow-right.color-green.rotate-45
         - elsif metric[:load][:trend] == 'flat'
           i.uk-icon-arrow-right.color-blue
-        br

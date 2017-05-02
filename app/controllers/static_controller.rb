@@ -2,32 +2,6 @@ class StaticController < ApplicationController
   # before_action :set_site, only: [:home]
   before_action :set_sites, only: [:home]
 
-  def read_har_stats which:, runs:
-    res = {}
-    case which
-    when 'average_load'
-      tmp_res = []
-      runs.each do |run|
-        next unless eval(run.har)[:log]
-        next if eval(run.har)[:log][:entries][0].nil?
-        tmp_res << eval(run.har)[:log][:entries][0][:time]
-      end
-      if tmp_res.size > 1
-        res[:load] = {}
-        res[:load][:average] = tmp_res.reduce(:+) / tmp_res.size.to_f
-        if tmp_res[0].to_f > res[:load][:average]
-          res[:load][:trend] = 'down'
-        elsif tmp_res[0].to_f < res[:load][:average]
-          res[:load][:trend] = 'up'
-        else
-          res[:load][:trend] = 'flat'
-        end
-      end
-      p res
-      return res
-    end
-  end
-
   def home
 
     @all_pages = {}
@@ -40,10 +14,6 @@ class StaticController < ApplicationController
          @metrics["#{site.url}/#{page.url}"] = read_har_stats which: 'average_load', runs: page_run
        end
     end
-#    @pages.each do |page|
-#      page_runs = Run.where(page_id: page.id).limit(10)
-#
-#    end
 
   end
 
@@ -56,4 +26,28 @@ class StaticController < ApplicationController
       @pages = Page.all
     end
 
+    def read_har_stats which:, runs:
+      res = {}
+      case which
+      when 'average_load'
+        tmp_res = []
+        runs.each do |run|
+          next unless eval(run.har)[:log]
+          next if eval(run.har)[:log][:entries][0].nil?
+          tmp_res << eval(run.har)[:log][:entries][0][:time]
+        end
+        if tmp_res.size > 1
+          res[:load] = {}
+          res[:load][:average] = tmp_res.reduce(:+) / tmp_res.size.to_f
+          if tmp_res[0].to_f > res[:load][:average]
+            res[:load][:trend] = 'down'
+          elsif tmp_res[0].to_f < res[:load][:average]
+            res[:load][:trend] = 'up'
+          else
+            res[:load][:trend] = 'flat'
+          end
+        end
+        return res
+      end
+    end
 end
