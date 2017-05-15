@@ -5,7 +5,7 @@ class MakeStatsJob < ApplicationJob
     Resque.logger.info '----------------'
     Resque.logger.info 'Message arrived'
 
-    manual = manual ? true : false
+    manual = manual == "true" ? true : false
     stats_keys = %w[requests postRequests httpsRequests notFound timeToFirstByte timeToLastByte bodySize contentLength httpTrafficCompleted]
     size_format = '1280x1024'
     device_format = 'computer'

@@ -5,7 +5,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @site = create :site
-    @page = create :page, site: @site
+    @page_1 = create :page, site: @site
   end
 
   def test_pages_reject_unauthenticated_request
@@ -28,7 +28,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   def test_show_page
     sign_in @site.user
 
-    get site_page_url(@site, @page)
+    get site_page_url(@site, @page_1)
     assert_response :ok
   end
 
@@ -46,7 +46,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   def test_edit_page
     sign_in @site.user
 
-    get edit_site_page_url(@site, @page)
+    get edit_site_page_url(@site, @page_1)
     assert :ok
     assert_select 'form'
     assert_select 'form input', 11
@@ -64,14 +64,14 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   def test_update_page
     sign_in @site.user
 
-    patch site_page_url(@site, @page), params: {page: {title: 'about1', url: '/about1', active: true, email: 'g@doctolib.fr', basic_auth: 'none', basic_password: 'none'}}
+    patch site_page_url(@site, @page_1), params: {page: {title: 'about1', url: '/about1', active: true, email: 'g@doctolib.fr', basic_auth: 'none', basic_password: 'none'}}
     assert_redirected_to site_pages_url(all: true)
   end
 
   def test_del_page
     sign_in @site.user
 
-    delete site_page_url(@site, @page.id)
+    delete site_page_url(@site, @page_1.id)
     assert_redirected_to site_pages_url(all: true)
   end
 
