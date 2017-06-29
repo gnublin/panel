@@ -5,6 +5,20 @@ ul.uk-list.uk-list-space
   li.uk-list Device: #{@run.device}
   li.uk-list Screen size: #{@run.size}
 
+- unless @run_last.nil?
+  ul.uk-list.uk-list-space
+    | Trend rom last build
+    ul.uk-list.uk-list-space
+       
+    - if @run_last.contentLength > @run.contentLength
+      li.uk-list Content length:  <=
+    - else
+      li.uk-list Content length:  =>
+    - if @run_last.contentLength > @run.contentLength
+      li.uk-list HTTP traffic completed:  <=
+    - else
+      li.uk-list HTTP traffic completed:  =>
+
 .navbar
   ul.uk-navbar-nav
     -@filter_type.each do |f_type|

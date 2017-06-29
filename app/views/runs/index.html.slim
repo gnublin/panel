@@ -47,6 +47,10 @@ h4 Url: #{@site.url}/#{@page.url}
         |Create at
       th 
         |Type
+      th
+        |Content length (Byte)
+      th
+        |HTTP traffic completed (ms)
       th 
         |Chart
     - @runs.each do |run|
@@ -63,6 +67,8 @@ h4 Url: #{@site.url}/#{@page.url}
             |Manual check
           -else
             |Scheduled check
+        td= run.contentLength
+        td= run.httpTrafficCompleted
         td 
           =< link_to "View Chart", run_path(run.id), class: 'uk-button'
 - else

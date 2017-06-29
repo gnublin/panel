@@ -5,7 +5,7 @@ class MakeStatsJob < ApplicationJob
     Resque.logger.info '----------------'
     Resque.logger.info 'Message arrived'
 
-    manual = manual == "true" ? true : false
+    manual = manual == 'true' ? true : false
     stats_keys = %w[requests postRequests httpsRequests notFound timeToFirstByte timeToLastByte bodySize contentLength httpTrafficCompleted]
     size_format = '1280x1024'
     device_format = 'computer'
@@ -35,7 +35,7 @@ class MakeStatsJob < ApplicationJob
     Resque.logger.info device_format
     Resque.logger.info size_format
 
-    har_res_json = %x(phantomas #{url} --har=#{temp_file.path} --viewport=#{size_format} #{device_format} --format json --user-agent '#{user_agent}')
+    har_res_json = %x(./node_modules/.bin/phantomas #{url} --har=#{temp_file.path} --viewport=#{size_format} #{device_format} --format json --user-agent '#{user_agent}')
     har_res = JSON.parse(har_res_json)
 
     har_metrics = har_res['metrics'].slice(*stats_keys).map { |k, v| [k.to_sym, v.to_i] }.to_h

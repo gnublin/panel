@@ -44,10 +44,10 @@ function selectGraph() {
     for (var d = 0, e = all_bstats_el.length; d < e; d++) {
         var is_in_array = active_filters.indexOf(all_bstats_el[d].getAttribute("class"));
         if (is_in_array > -1 || active_filters[0] == "all" || active_filters.length == 0) {
-            all_bstats_el[d].style.display = "block";
+            all_bstats_el[d].style.opacity = 1;
         }
         else {
-            all_bstats_el[d].style.display = "none";
+            all_bstats_el[d].style.opacity = 0.3;
         }
     }
     return false;

@@ -7,6 +7,7 @@ class RunsController < ApplicationController
     @page = Page.find(params[:page_id])
     @site = Site.find(params[:site_id])
 
+
     if per_page.to_i > 20
     per_page = 20
       redirect_to site_page_runs_path(per_page: per_page)
@@ -40,5 +41,6 @@ class RunsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_run
       @run = Run.find(params[:id])
+      @run_last = Run.where(page_id: 1).all.order(id: :desc)[1]
     end
 end
